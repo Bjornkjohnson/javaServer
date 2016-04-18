@@ -1,0 +1,24 @@
+## File-based project format:
+*.iws
+*.iml
+.idea/
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
