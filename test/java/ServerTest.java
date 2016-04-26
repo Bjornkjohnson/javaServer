@@ -27,4 +27,13 @@ public class ServerTest {
         testSocket.close();
     }
 
+    @Test
+    public void testAcceptReturnsTrueWhenConnectionExists() throws Exception {
+        Socket testSocket = new Socket("localhost", TESTPORT);
+        assertTrue(testServer.accept());
+        testSocket.close();
+    }
+
+
+
 }
