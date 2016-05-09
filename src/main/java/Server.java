@@ -5,32 +5,29 @@ import java.net.Socket;
 public class Server {
     private ServerSocket listener;
     private Socket clientSocket;
-    private OutputStream out;
+    private PrintWriter out;
     BufferedReader in;
-
-    public Server(int port){
-        try {
-            listener = new ServerSocket(port);
-        } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
-                    + port + " or listening for a connection");
-            System.out.println(e.getMessage());
-        }
-    }
 
     public boolean isRunning(){
         return !listener.isClosed();
     }
 
-    public void start() {
+    public void start(int port) {
         try {
+            listener = new ServerSocket(port);
             while (isRunning()) {
                 clientSocket = listener.accept();
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                String response = "HTTP/1.1 200 OK\r\n";
-                out.print(response);
-                System.out.println(in.readLine());
+                Response response = new Response();
+                out.print(response.getResponse());
+                String message;
+                while ((message = in.readLine()) != null) {
+                    System.out.println(message);
+                    if (message.equals("")) {
+                        break;
+                    }
+                }
                 out.close();
             }
         } catch (IOException e){
@@ -40,7 +37,11 @@ public class Server {
     }
 
     public void stop() {
-        try {listener.close();}
+        try {
+            in.close();
+            out.close();
+            listener.close();
+        }
         catch (IOException e) { throw new RuntimeException(e);}
     }
 
