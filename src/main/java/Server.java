@@ -1,14 +1,12 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
     private ServerSocket listener;
-    private Socket socket;
+    private Socket clientSocket;
     private OutputStream out;
+    BufferedReader in;
 
     public Server(int port){
         try {
@@ -26,8 +24,15 @@ public class Server {
 
     public void start() {
         try {
-            socket = listener.accept();
-            out = socket.getOutputStream();
+            while (isRunning()) {
+                clientSocket = listener.accept();
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                String response = "HTTP/1.1 200 OK\r\n";
+                out.print(response);
+                System.out.println(in.readLine());
+                out.close();
+            }
         } catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -39,11 +44,4 @@ public class Server {
         catch (IOException e) { throw new RuntimeException(e);}
     }
 
-    public void getResponse() {
-
-        try {
-            String response = "HTTP/1.1 200 OK\r\n";
-            out.write(response.getBytes());
-        } catch (IOException e) { throw new RuntimeException(e);}
-    }
 }
