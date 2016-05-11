@@ -1,14 +1,20 @@
 public class Request {
-    String rawRequest;
-    public Request(String rawRequest) {
-        this.rawRequest = rawRequest;
+    String method;
+    String URL;
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public String getMethod() {
-        return rawRequest.split(" ")[0];
+        return method;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
     }
 
     public String getURL() {
-        return rawRequest.split(" ")[1];
+        return URL;
     }
 }

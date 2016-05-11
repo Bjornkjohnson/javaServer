@@ -20,13 +20,15 @@ public class RequestTest {
 
     @Test
     public void testRequestHasGet() throws Exception {
-        Request testRequest = new Request(rawRequest);
+        Request testRequest = new Request();
+        testRequest.setMethod("GET");
         assertEquals("GET", testRequest.getMethod());
     }
 
     @Test
     public void testRequestHasURL() throws Exception {
-        Request testRequest = new Request(rawRequest);
+        Request testRequest = new Request();
+        testRequest.setURL("/");
         assertEquals("/", testRequest.getURL());
     }
 }

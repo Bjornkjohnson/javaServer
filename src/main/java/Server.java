@@ -19,8 +19,6 @@ public class Server {
                 clientSocket = listener.accept();
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                Response response = new Response();
-                out.print(response.getResponse());
                 String message;
                 while ((message = in.readLine()) != null) {
                     System.out.println(message);
@@ -28,6 +26,8 @@ public class Server {
                         break;
                     }
                 }
+                Response response = new Response();
+                out.print(response.getResponse() + "hello\r\n");
                 out.close();
             }
         } catch (IOException e){
