@@ -12,6 +12,7 @@ public class RequestBuilder {
         String rawRequest = in.readLine();
         request.setMethod(extractMethod(rawRequest));
         request.setURL(extractURL(rawRequest));
+        request.setProtocol(extractProtocol(rawRequest));
         return request;
     }
 
@@ -23,5 +24,9 @@ public class RequestBuilder {
 
     private String extractURL(String rawRequest) {
         return rawRequest.split(" ")[1];
+    }
+
+    private String extractProtocol(String rawRequest) {
+        return rawRequest.split(" ")[2];
     }
 }

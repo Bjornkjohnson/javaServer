@@ -19,7 +19,7 @@ public class ResponseTest {
     @Test
     public void testNewResponseReturnsProtocolAndStatus() throws Exception {
         Response testResponse = new Response();
-        assertEquals("HTTP/1.1 200 OK\r\n", testResponse.getResponse());
+        assertEquals("HTTP/1.1 200 OK\r\n\r\n", testResponse.getResponse());
     }
 
 

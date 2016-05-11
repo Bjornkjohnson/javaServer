@@ -1,6 +1,7 @@
 public class Request {
     String method;
     String URL;
+    String protocol;
 
     public void setMethod(String method) {
         this.method = method;
@@ -16,5 +17,13 @@ public class Request {
 
     public String getURL() {
         return URL;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public String getProtocol() {
+        return protocol;
     }
 }
