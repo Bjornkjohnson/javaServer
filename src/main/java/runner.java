@@ -3,7 +3,9 @@ public class runner {
     public static void main(String [] args) {
         try {
             ArgsParser parser = new ArgsParser(args);
-            Server server = new Server();
+            Router router = new Router();
+            router.addRoute("/", new Response());
+            Server server = new Server(router);
             System.out.println("Starting Server on port " + parser.getPort() );
             server.start(parser.getPort());
         } catch (Exception e) {

@@ -7,7 +7,11 @@ public class Router {
         return this.routes.containsKey(route);
     }
 
-    public void addRoute(String route) {
-        this.routes.put("/", new Response());
+    public void addRoute(String route, Response response) {
+        this.routes.put(route, response);
+    }
+
+    public Response getResponse() {
+        return new Response();
     }
 }

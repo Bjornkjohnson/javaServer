@@ -3,10 +3,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    private final Router router;
     private ServerSocket listener;
     private Socket clientSocket;
     private PrintWriter out;
     BufferedReader in;
+
+    public Server(Router router){
+        this.router = router;
+    }
 
     public boolean isRunning(){
         return !listener.isClosed();
@@ -22,7 +27,7 @@ public class Server {
                 Request request = new RequestBuilder(in).buildRequest();
                 System.out.println(request.getMethod());
                 System.out.println(request.getURL());
-                Response response = new Response();
+                Response response = router.getResponse();
                 if (request.getURL().equals("/file1")){
                     response.setBody("file1 contents");
                 }

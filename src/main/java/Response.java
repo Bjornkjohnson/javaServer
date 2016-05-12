@@ -12,4 +12,8 @@ public class Response {
     public void setBody(String body) {
         this.body = body + "\r\n";
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

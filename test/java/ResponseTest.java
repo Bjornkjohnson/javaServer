@@ -29,5 +29,11 @@ public class ResponseTest {
         assertEquals("HTTP/1.1 200 OK\r\n\r\nBody\r\n", testResponse.getResponse());
     }
 
+    @Test
+    public void testAddFourOhFourStatus() throws Exception {
+        testResponse.setStatus("404 NOT FOUND\r\n\r\n");
+        assertEquals("HTTP/1.1 404 NOT FOUND\r\n\r\n", testResponse.getResponse());
+    }
+
 
 }
