@@ -14,6 +14,8 @@ public class routerTest {
 
     @Test
     public void testAddingRoute() {
-//        assertEquals("/", router.getRoute(""));
+        Router router = new Router();
+        router.addRoute("/");
+        assertTrue(router.routeExists("/"));
     }
 }
