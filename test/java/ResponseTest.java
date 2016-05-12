@@ -20,19 +20,25 @@ public class ResponseTest {
 
     @Test
     public void testNewResponseReturnsProtocolAndStatus() throws Exception {
-        assertEquals("HTTP/1.1 200 OK\r\n\r\n", testResponse.getResponse());
+        assertEquals("HTTP/1.1 200 OK\r\n\r\n", testResponse.buildResponse());
     }
 
     @Test
     public void testAddBody() throws Exception {
         testResponse.setBody("Body");
-        assertEquals("HTTP/1.1 200 OK\r\n\r\nBody\r\n", testResponse.getResponse());
+        assertEquals("HTTP/1.1 200 OK\r\n\r\nBody\r\n", testResponse.buildResponse());
     }
 
     @Test
     public void testAddFourOhFourStatus() throws Exception {
-        testResponse.setStatus("404 NOT FOUND\r\n\r\n");
-        assertEquals("HTTP/1.1 404 NOT FOUND\r\n\r\n", testResponse.getResponse());
+        testResponse.setStatus("404 NOT FOUND");
+        assertEquals("HTTP/1.1 404 NOT FOUND\r\n\r\n", testResponse.buildResponse());
+    }
+
+    @Test
+    public void testContainsOptionsHeader() throws Exception {
+        testResponse.addHeader("Allow", "HEAD, POST, GET, OPTIONS, PUT");
+        assertEquals("HTTP/1.1 200 OK\r\nAllow: HEAD, POST, GET, OPTIONS, PUT\r\n\r\n", testResponse.buildResponse());
     }
 
 

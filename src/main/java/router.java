@@ -11,7 +11,13 @@ public class Router {
         this.routes.put(route, response);
     }
 
-    public Response getResponse() {
-        return new Response();
+    public Response getResponse(String route) {
+        if (routeExists(route)){
+            return routes.get(route);
+        }
+        Response response = new Response();
+        response.setStatus("404 Not Found");
+        return response;
+
     }
 }

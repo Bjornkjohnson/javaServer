@@ -25,13 +25,14 @@ public class Server {
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in).buildRequest();
-                System.out.println(request.getMethod());
-                System.out.println(request.getURL());
-                Response response = router.getResponse();
+                Response response = router.getResponse(request.getRoute());
                 if (request.getURL().equals("/file1")){
                     response.setBody("file1 contents");
                 }
-                out.print(response.getResponse());
+                out.print(response.buildResponse());
+                System.out.println(response.buildResponse());
+
+
                 out.close();
             }
         } catch (Exception e){
