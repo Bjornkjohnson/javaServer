@@ -6,9 +6,11 @@ import static org.junit.Assert.*;
 
 public class ResponseTest {
 
+    private Response testResponse;
+
     @Before
     public void setUp() throws Exception {
-
+        testResponse = new Response();
     }
 
     @After
@@ -18,8 +20,13 @@ public class ResponseTest {
 
     @Test
     public void testNewResponseReturnsProtocolAndStatus() throws Exception {
-        Response testResponse = new Response();
         assertEquals("HTTP/1.1 200 OK\r\n\r\n", testResponse.getResponse());
+    }
+
+    @Test
+    public void testAddBody() throws Exception {
+        testResponse.setBody("Body");
+        assertEquals("HTTP/1.1 200 OK\r\n\r\nBody\r\n", testResponse.getResponse());
     }
 
 

@@ -19,18 +19,17 @@ public class Server {
                 clientSocket = listener.accept();
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                String message;
-                while ((message = in.readLine()) != null) {
-                    System.out.println(message);
-                    if (message.equals("")) {
-                        break;
-                    }
-                }
+                Request request = new RequestBuilder(in).buildRequest();
+                System.out.println(request.getMethod());
+                System.out.println(request.getURL());
                 Response response = new Response();
-                out.print(response.getResponse() + "hello\r\n");
+                if (request.getURL().equals("/file1")){
+                    response.setBody("file1 contents");
+                }
+                out.print(response.getResponse());
                 out.close();
             }
-        } catch (IOException e){
+        } catch (Exception e){
             throw new RuntimeException(e);
         }
 
