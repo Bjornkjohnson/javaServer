@@ -26,4 +26,8 @@ public class Request {
     public String getProtocol() {
         return protocol;
     }
+
+    public String getRoute() {
+        return this.method + " " + this.URL;
+    }
 }

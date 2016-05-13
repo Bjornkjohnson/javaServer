@@ -3,10 +3,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    private final Router router;
     private ServerSocket listener;
     private Socket clientSocket;
     private PrintWriter out;
     BufferedReader in;
+
+    public Server(Router router){
+        this.router = router;
+    }
 
     public boolean isRunning(){
         return !listener.isClosed();
@@ -19,18 +24,18 @@ public class Server {
                 clientSocket = listener.accept();
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                String message;
-                while ((message = in.readLine()) != null) {
-                    System.out.println(message);
-                    if (message.equals("")) {
-                        break;
-                    }
+                Request request = new RequestBuilder(in).buildRequest();
+                Response response = router.getResponse(request.getRoute());
+                if (request.getURL().equals("/file1")){
+                    response.setBody("file1 contents");
                 }
-                Response response = new Response();
-                out.print(response.getResponse() + "hello\r\n");
+                out.print(response.buildResponse());
+                System.out.println(response.buildResponse());
+
+
                 out.close();
             }
-        } catch (IOException e){
+        } catch (Exception e){
             throw new RuntimeException(e);
         }
 

@@ -38,4 +38,12 @@ public class RequestTest {
         testRequest.setProtocol("HTTP/1.1");
         assertEquals("HTTP/1.1", testRequest.getProtocol());
     }
+
+    @Test
+    public void testGetRoute() throws Exception {
+        Request testRequest = new Request();
+        testRequest.setMethod("GET");
+        testRequest.setURL("/");
+        assertEquals("GET /", testRequest.getRoute());
+    }
 }
