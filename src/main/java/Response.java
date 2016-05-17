@@ -36,4 +36,8 @@ public class Response {
     public byte[] getBody() {
         return body;
     }
+
+    public String getStatus() {
+        return status;
+    }
 }

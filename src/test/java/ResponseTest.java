@@ -45,5 +45,9 @@ public class ResponseTest {
         assertArrayEquals(rawString.getBytes(), testResponse.buildStatusAndHeaderBytes());
     }
 
+    @Test
+    public void testGetStatus() throws Exception {
+        assertEquals("200 OK", testResponse.getStatus());
 
+    }
 }

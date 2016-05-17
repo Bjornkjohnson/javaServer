@@ -32,10 +32,10 @@ public class Server {
                 Response response = router.getResponse(request.getRoute());
                 byte[] responseBytes = response.buildStatusAndHeaderBytes();
                 if (request.getURL().equals("/image.jpeg")){
-                    File image = new File(publicDir + "/image.jpeg");
-                    byte[] fileContent = Files.readAllBytes(image.toPath());
-                    out.write(responseBytes);
-                    out.write(fileContent);
+                    BuildImageResponse builder = new BuildImageResponse(request, publicDir);
+                    Response imageResponse = builder.getResponse();
+                    out.write(imageResponse.buildStatusAndHeaderBytes());
+                    out.write(imageResponse.getBody());
                     out.flush();
                 } else if (request.getURL().equals("/image.png")){
                     File image = new File(publicDir + "/image.png");
