@@ -66,7 +66,7 @@ public class ArgsParserTest {
     public void testNoDirectoryFlagReturnsDefault() throws Exception {
         String[] rawArgs = { "-p", "5020"};
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals("PUBLIC_DIR", testParser.getDirectory());
+        assertEquals("/Users/bjornjohnson/dev/cob_spec/public", testParser.getDirectory());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class ArgsParserTest {
     public void testEmptyArgsReturnsDefault() throws Exception {
         String[] rawArgs = {};
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals("PUBLIC_DIR", testParser.getDirectory());
+        assertEquals("/Users/bjornjohnson/dev/cob_spec/public", testParser.getDirectory());
         assertEquals(5000, testParser.getPort());
 
     }

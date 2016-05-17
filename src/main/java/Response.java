@@ -4,17 +4,17 @@ public class Response {
     private final String CRLF = "\r\n";
     private final String PROTOCOL = "HTTP/1.1 ";
     private String status = "200 OK";
-    private String body = "";
+    private byte[] body;
     private HashMap<String, String> headers = new HashMap<>();
 
-    public String buildResponseString() {
-        return PROTOCOL + status + CRLF +
-                buildHeader() + CRLF +
-                body;
+    public byte[] buildStatusAndHeaderBytes() {
+        String statusAndHeaders = PROTOCOL + status + CRLF +
+                buildHeader() + CRLF;
+        return statusAndHeaders.getBytes();
     }
 
-    public void setBody(String body) {
-        this.body = body + CRLF;
+    public void setBody(byte[] body) {
+        this.body = body;
     }
 
     public void setStatus(String status) {
@@ -30,5 +30,10 @@ public class Response {
         for (String key : headers.keySet())
             headerString += key + ": " + headers.get(key) + CRLF;
         return headerString;
+    }
+
+
+    public byte[] getBody() {
+        return body;
     }
 }

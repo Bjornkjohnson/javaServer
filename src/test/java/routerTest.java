@@ -6,8 +6,8 @@ import static org.junit.Assert.*;
 public class routerTest {
 
     private Router router;
-    private static final String fourOhFour = "HTTP/1.1 404 Not Found\r\n\r\n";
-    private static final String twoHundredOk = "HTTP/1.1 200 OK\r\n\r\n";
+    private static final byte[] fourOhFour = "HTTP/1.1 404 Not Found\r\n\r\n".getBytes();
+    private static final byte[] twoHundredOk = "HTTP/1.1 200 OK\r\n\r\n".getBytes();
 
     @Before
     public void setUp() throws Exception {
@@ -25,17 +25,17 @@ public class routerTest {
 
     @Test
     public void testRouteThatExistsReturns200ok() {
-        assertEquals(twoHundredOk, router.getResponse("GET /").buildResponseString());
+        assertArrayEquals(twoHundredOk, router.getResponse("GET /").buildStatusAndHeaderBytes());
     }
 
     @Test
     public void testPutRouteReturns200ok() {
-        assertEquals(twoHundredOk, router.getResponse("PUT /").buildResponseString());
+        assertArrayEquals(twoHundredOk, router.getResponse("PUT /").buildStatusAndHeaderBytes());
     }
 
     @Test
     public void testRouteThatDoesNotExistsReturnsFourOhFour() {
-        assertEquals(fourOhFour, router.getResponse("GET /notARoute").buildResponseString());
+        assertArrayEquals(fourOhFour, router.getResponse("GET /notARoute").buildStatusAndHeaderBytes());
     }
 
     @Test
@@ -44,6 +44,6 @@ public class routerTest {
         testResponse.addHeader("Allow", "GET");
         router.addRoute("/route", testResponse);
         Response routerResponse = router.getResponse("/route");
-        assertEquals(testResponse.buildResponseString(), routerResponse.buildResponseString());
+        assertArrayEquals(testResponse.buildStatusAndHeaderBytes(), routerResponse.buildStatusAndHeaderBytes());
     }
 }

@@ -28,7 +28,7 @@ public class ArgsParser {
     }
 
     public String getDirectory() {
-        String directory = "PUBLIC_DIR";
+        String directory = "/Users/bjornjohnson/dev/cob_spec/public";
         if (containsFlag("-d")){
             directory = extractParam("-d");
         }

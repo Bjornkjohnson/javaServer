@@ -5,13 +5,16 @@ import java.nio.file.Files;
 
 public class Server {
     private final Router router;
+    private final String publicDir;
     private ServerSocket listener;
     private Socket clientSocket;
     private OutputStream out;
     BufferedReader in;
 
-    public Server(Router router){
+    public Server(Router router, String publicDir){
         this.router = router;
+        this.publicDir = publicDir;
+        System.out.println(this.publicDir);
     }
 
     public boolean isRunning(){
@@ -27,33 +30,35 @@ public class Server {
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in).buildRequest();
                 Response response = router.getResponse(request.getRoute());
-                byte[] responseBytes = response.buildResponseString().getBytes();
+                byte[] responseBytes = response.buildStatusAndHeaderBytes();
                 if (request.getURL().equals("/image.jpeg")){
-                    File image = new File("/Users/bjornjohnson/dev/cob_spec/public/image.jpeg");
+                    File image = new File(publicDir + "/image.jpeg");
                     byte[] fileContent = Files.readAllBytes(image.toPath());
                     out.write(responseBytes);
                     out.write(fileContent);
+                    out.flush();
                 } else if (request.getURL().equals("/image.png")){
-                    File image = new File("/Users/bjornjohnson/dev/cob_spec/public/image.png");
+                    File image = new File(publicDir + "/image.png");
                     byte[] fileContent = Files.readAllBytes(image.toPath());
                     out.write(responseBytes);
                     out.write(fileContent);
+                    out.flush();
                 } else if (request.getURL().equals("/image.gif")){
-                    File image = new File("/Users/bjornjohnson/dev/cob_spec/public/image.gif");
+                    File image = new File(publicDir + "/image.gif");
                     byte[] fileContent = Files.readAllBytes(image.toPath());
                     out.write(responseBytes);
                     out.write(fileContent);
+                    out.flush();
                 } else if (request.getURL().equals("/file1")){
-                    File image = new File("/Users/bjornjohnson/dev/cob_spec/public/file1");
+                    File image = new File(publicDir + "/file1");
                     byte[] fileContent = Files.readAllBytes(image.toPath());
                     out.write(responseBytes);
                     out.write(fileContent);
+                    out.flush();
                 }else {
                     out.write(responseBytes);
+                    out.flush();
                 }
-
-                System.out.println(response.buildResponseString());
-
 
                 out.close();
             }
