@@ -25,17 +25,17 @@ public class routerTest {
 
     @Test
     public void testRouteThatExistsReturns200ok() {
-        assertEquals(twoHundredOk, router.getResponse("GET /").buildResponse());
+        assertEquals(twoHundredOk, router.getResponse("GET /").buildResponseString());
     }
 
     @Test
     public void testPutRouteReturns200ok() {
-        assertEquals(twoHundredOk, router.getResponse("PUT /").buildResponse());
+        assertEquals(twoHundredOk, router.getResponse("PUT /").buildResponseString());
     }
 
     @Test
     public void testRouteThatDoesNotExistsReturnsFourOhFour() {
-        assertEquals(fourOhFour, router.getResponse("GET /notARoute").buildResponse());
+        assertEquals(fourOhFour, router.getResponse("GET /notARoute").buildResponseString());
     }
 
     @Test
@@ -44,6 +44,6 @@ public class routerTest {
         testResponse.addHeader("Allow", "GET");
         router.addRoute("/route", testResponse);
         Response routerResponse = router.getResponse("/route");
-        assertEquals(testResponse.buildResponse(), routerResponse.buildResponse());
+        assertEquals(testResponse.buildResponseString(), routerResponse.buildResponseString());
     }
 }

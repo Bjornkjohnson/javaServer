@@ -7,7 +7,7 @@ public class Response {
     private String body = "";
     private HashMap<String, String> headers = new HashMap<>();
 
-    public String buildResponse() {
+    public String buildResponseString() {
         return PROTOCOL + status + CRLF +
                 buildHeader() + CRLF +
                 body;
