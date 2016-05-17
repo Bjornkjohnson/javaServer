@@ -7,7 +7,7 @@ import java.nio.file.Files;
 
 import static org.junit.Assert.*;
 
-public class BuildImageResponseTest {
+public class ImageResponseBuilderTest {
     private Request request;
     private String imagePath;
 
@@ -24,7 +24,7 @@ public class BuildImageResponseTest {
         request.setURL("/image.png");
         File testImage = new File(imagePath + "/image.png");
         byte[] fileContent = Files.readAllBytes(testImage.toPath());
-        BuildImageResponse imageResponse = new BuildImageResponse(imagePath);
+        ImageResponseBuilder imageResponse = new ImageResponseBuilder(imagePath);
         Response response = imageResponse.getResponse(request);
         assertArrayEquals(fileContent, response.getBody());
     }
@@ -32,7 +32,7 @@ public class BuildImageResponseTest {
     @Test
     public void testMissingImageReturnsFourOhFour() throws Exception {
         request.setURL("/fake.png");
-        BuildImageResponse imageResponse = new BuildImageResponse(imagePath);
+        ImageResponseBuilder imageResponse = new ImageResponseBuilder(imagePath);
         Response response = imageResponse.getResponse(request);
         assertEquals("404 NOT FOUND", response.getStatus());
     }

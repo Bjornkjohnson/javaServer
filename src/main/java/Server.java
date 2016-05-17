@@ -30,9 +30,10 @@ public class Server {
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in).buildRequest();
                 Response response = router.getResponse(request.getRoute());
+
                 byte[] responseBytes = response.buildStatusAndHeaderBytes();
                 if (request.getURL().equals("/image.jpeg")){
-                    BuildImageResponse builder = new BuildImageResponse(publicDir);
+                    ImageResponseBuilder builder = new ImageResponseBuilder(publicDir);
                     Response imageResponse = builder.getResponse(request);
                     out.write(imageResponse.buildStatusAndHeaderBytes());
                     out.write(imageResponse.getBody());

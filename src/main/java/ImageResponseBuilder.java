@@ -2,11 +2,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class BuildImageResponse {
+public class ImageResponseBuilder implements ResponseBuilderInterface {
     private String directoryPath;
     Response response = new Response();
 
-    public BuildImageResponse(String directoryPath) {
+    public ImageResponseBuilder(String directoryPath) {
         this.directoryPath = directoryPath;
     }
 
