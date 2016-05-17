@@ -24,16 +24,16 @@ public class BuildImageResponseTest {
         request.setURL("/image.png");
         File testImage = new File(imagePath + "/image.png");
         byte[] fileContent = Files.readAllBytes(testImage.toPath());
-        BuildImageResponse imageResponse = new BuildImageResponse(request, imagePath);
-        Response response = imageResponse.getResponse();
+        BuildImageResponse imageResponse = new BuildImageResponse(imagePath);
+        Response response = imageResponse.getResponse(request);
         assertArrayEquals(fileContent, response.getBody());
     }
 
     @Test
     public void testMissingImageReturnsFourOhFour() throws Exception {
         request.setURL("/fake.png");
-        BuildImageResponse imageResponse = new BuildImageResponse(request, imagePath);
-        Response response = imageResponse.getResponse();
+        BuildImageResponse imageResponse = new BuildImageResponse(imagePath);
+        Response response = imageResponse.getResponse(request);
         assertEquals("404 NOT FOUND", response.getStatus());
     }
 }

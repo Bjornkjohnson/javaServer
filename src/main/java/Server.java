@@ -32,8 +32,8 @@ public class Server {
                 Response response = router.getResponse(request.getRoute());
                 byte[] responseBytes = response.buildStatusAndHeaderBytes();
                 if (request.getURL().equals("/image.jpeg")){
-                    BuildImageResponse builder = new BuildImageResponse(request, publicDir);
-                    Response imageResponse = builder.getResponse();
+                    BuildImageResponse builder = new BuildImageResponse(publicDir);
+                    Response imageResponse = builder.getResponse(request);
                     out.write(imageResponse.buildStatusAndHeaderBytes());
                     out.write(imageResponse.getBody());
                     out.flush();

@@ -3,16 +3,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class BuildImageResponse {
-    private Request request;
     private String directoryPath;
     Response response = new Response();
 
-    public BuildImageResponse(Request request, String directoryPath) {
-        this.request = request;
+    public BuildImageResponse(String directoryPath) {
         this.directoryPath = directoryPath;
     }
 
-    public void readFromFile() {
+    public void readFromFile(Request request) {
         File image = new File(directoryPath + request.getURL());
         try {
             byte[] fileContent = Files.readAllBytes(image.toPath());
@@ -22,8 +20,8 @@ public class BuildImageResponse {
         }
     }
 
-    public Response getResponse() {
-        readFromFile();
+    public Response getResponse(Request request) {
+        readFromFile(request);
         return response;
     }
 }
