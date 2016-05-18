@@ -1,3 +1,5 @@
+package bjohnson;
+
 public class Request {
     String method;
     String URL;

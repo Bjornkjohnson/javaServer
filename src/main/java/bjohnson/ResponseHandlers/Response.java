@@ -1,3 +1,5 @@
+package bjohnson.ResponseHandlers;
+
 import java.util.HashMap;
 
 public class Response {

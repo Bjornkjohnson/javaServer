@@ -1,4 +1,7 @@
+package bjohnson;
+
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +26,7 @@ public class ArgsParserTest {
         String[] rawArgs = {"-p", "5020", "-d", "MY_DIR"};
         Arrays.asList(rawArgs);
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals(5020, testParser.getPort());
+        Assert.assertEquals(5020, testParser.getPort());
     }
 
     @Test
@@ -31,14 +34,14 @@ public class ArgsParserTest {
         String[] rawArgs = { "-d", "MY_DIR", "-p", "5020"};
         Arrays.asList(rawArgs);
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals(5020, testParser.getPort());
+        Assert.assertEquals(5020, testParser.getPort());
     }
 
     @Test
     public void testNoPortFlagReturnsDefault() throws Exception {
         String[] rawArgs = { "-d", "MY_DIR"};
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals(5000, testParser.getPort());
+        Assert.assertEquals(5000, testParser.getPort());
     }
 
     @Test(expected=NumberFormatException.class)
@@ -59,21 +62,21 @@ public class ArgsParserTest {
     public void testDirectoryExtraction() throws Exception {
         String[] rawArgs = { "-d", "MY_DIR", "-p", "5020"};
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals("MY_DIR", testParser.getDirectory());
+        Assert.assertEquals("MY_DIR", testParser.getDirectory());
     }
 
     @Test
     public void testNoDirectoryFlagReturnsDefault() throws Exception {
         String[] rawArgs = { "-p", "5020"};
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals("/Users/bjornjohnson/dev/cob_spec/public", testParser.getDirectory());
+        Assert.assertEquals("/Users/bjornjohnson/dev/cob_spec/public", testParser.getDirectory());
     }
 
     @Test
     public void tesLongerDirectoryPath() throws Exception {
         String[] rawArgs = { "-d", "/User/somebody/cob_spec/public/"};
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals("/User/somebody/cob_spec/public/", testParser.getDirectory());
+        Assert.assertEquals("/User/somebody/cob_spec/public/", testParser.getDirectory());
     }
 
     @Test(expected=ArrayIndexOutOfBoundsException.class)
@@ -87,8 +90,8 @@ public class ArgsParserTest {
     public void testEmptyArgsReturnsDefault() throws Exception {
         String[] rawArgs = {};
         ArgsParser testParser = new ArgsParser(rawArgs);
-        assertEquals("/Users/bjornjohnson/dev/cob_spec/public", testParser.getDirectory());
-        assertEquals(5000, testParser.getPort());
+        Assert.assertEquals("/Users/bjornjohnson/dev/cob_spec/public", testParser.getDirectory());
+        Assert.assertEquals(5000, testParser.getPort());
 
     }
 }

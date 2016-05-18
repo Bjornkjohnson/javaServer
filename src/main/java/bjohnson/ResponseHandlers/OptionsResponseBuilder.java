@@ -1,3 +1,7 @@
+package bjohnson.ResponseHandlers;
+
+import bjohnson.Request;
+
 public class OptionsResponseBuilder implements ResponseBuilderInterface {
 
     private Response response;

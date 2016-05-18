@@ -1,3 +1,6 @@
+package bjohnson;
+
+import bjohnson.ResponseHandlers.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +33,7 @@ public class routerTest {
 
     @Test
     public void testRouteThatDoesNotExistsReturnsFourOhFour() {
-        assertThat(router.getResponse("GET /fakeRoute"), instanceOf(FourOhFourBuilder.class));
+        assertThat(router.getResponse("GET /fakeRoute"), instanceOf(FourOhFourResponseBuilder.class));
     }
 
 

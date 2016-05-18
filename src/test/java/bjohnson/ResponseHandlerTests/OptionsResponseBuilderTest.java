@@ -1,7 +1,11 @@
+package bjohnson.ResponseHandlerTests;
+
+import bjohnson.Request;
+import bjohnson.ResponseHandlers.OptionsResponseBuilder;
+import bjohnson.ResponseHandlers.Response;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class OptionsResponseBuilderTest {
 
@@ -19,6 +23,6 @@ public class OptionsResponseBuilderTest {
         optionsResponseBuilder.allowAll();
         Response response = optionsResponseBuilder.getResponse(request);
         String correctResponse = "HTTP/1.1 200 OK\r\nAllow: HEAD,POST,GET,OPTIONS,PUT\r\n\r\n";
-        assertArrayEquals(correctResponse.getBytes(), response.buildResponse());
+        Assert.assertArrayEquals(correctResponse.getBytes(), response.buildResponse());
     }
 }

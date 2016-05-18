@@ -1,3 +1,8 @@
+package bjohnson;
+
+import bjohnson.ResponseHandlers.ResponseBuilderInterface;
+import bjohnson.ResponseHandlers.FourOhFourResponseBuilder;
+
 import java.util.HashMap;
 
 public class Router {
@@ -15,9 +20,6 @@ public class Router {
         if (routeExists(route)){
             return routes.get(route);
         }
-//        Response response = new Response();
-//        response.setStatus("404 Not Found");
-        return new FourOhFourBuilder();
-
+        return new FourOhFourResponseBuilder();
     }
 }

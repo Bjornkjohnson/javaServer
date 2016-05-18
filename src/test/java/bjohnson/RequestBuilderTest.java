@@ -1,3 +1,6 @@
+package bjohnson;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,8 +24,8 @@ public class RequestBuilderTest {
         when(bufferedReader.readLine()).thenReturn("GET / HTTP/1.1");
         RequestBuilder builder = new RequestBuilder(bufferedReader);
 
-        assertEquals("GET", builder.buildRequest().getMethod());
-        assertEquals("/", builder.buildRequest().getURL());
-        assertEquals("HTTP/1.1", builder.buildRequest().getProtocol());
+        Assert.assertEquals("GET", builder.buildRequest().getMethod());
+        Assert.assertEquals("/", builder.buildRequest().getURL());
+        Assert.assertEquals("HTTP/1.1", builder.buildRequest().getProtocol());
     }
 }

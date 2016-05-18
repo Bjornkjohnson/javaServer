@@ -1,3 +1,5 @@
+package bjohnson;
+
 import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;

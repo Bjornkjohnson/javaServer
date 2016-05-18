@@ -1,11 +1,15 @@
+package bjohnson.ResponseHandlerTests;
 
+
+import bjohnson.Request;
+import bjohnson.ResponseHandlers.ImageResponseBuilder;
+import bjohnson.ResponseHandlers.Response;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.nio.file.Files;
-
-import static org.junit.Assert.*;
 
 public class ImageResponseBuilderTest {
     private Request request;
@@ -15,7 +19,7 @@ public class ImageResponseBuilderTest {
     public void setUp() throws Exception {
         request = new Request();
         request.setMethod("GET");
-        imagePath = System.getProperty("user.dir") + "/src/test/java/testResource";
+        imagePath = System.getProperty("user.dir") + "/src/test/java/bjohnson/testResource";
 
     }
 
@@ -26,7 +30,7 @@ public class ImageResponseBuilderTest {
         byte[] fileContent = Files.readAllBytes(testImage.toPath());
         ImageResponseBuilder imageResponse = new ImageResponseBuilder(imagePath);
         Response response = imageResponse.getResponse(request);
-        assertArrayEquals(fileContent, response.getBody());
+        Assert.assertArrayEquals(fileContent, response.getBody());
     }
 
     @Test
@@ -34,6 +38,6 @@ public class ImageResponseBuilderTest {
         request.setURL("/fake.png");
         ImageResponseBuilder imageResponse = new ImageResponseBuilder(imagePath);
         Response response = imageResponse.getResponse(request);
-        assertEquals("404 NOT FOUND", response.getStatus());
+        Assert.assertEquals("404 NOT FOUND", response.getStatus());
     }
 }

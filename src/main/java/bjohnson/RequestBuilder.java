@@ -1,3 +1,5 @@
+package bjohnson;
+
 import java.io.BufferedReader;
 
 public class RequestBuilder {

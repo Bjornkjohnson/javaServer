@@ -1,3 +1,8 @@
+package bjohnson;
+
+import bjohnson.ResponseHandlers.Response;
+import bjohnson.ResponseHandlers.ResponseBuilderInterface;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;

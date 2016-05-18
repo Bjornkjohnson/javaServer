@@ -1,3 +1,7 @@
+package bjohnson.ResponseHandlers;
+
+import bjohnson.Request;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +22,7 @@ public class ImageResponseBuilder implements ResponseBuilderInterface {
             response.setBody(fileContent);
         } catch (IOException e) {
 
-           response = new FourOhFourBuilder().getResponse(request);
+           response = new FourOhFourResponseBuilder().getResponse(request);
         }
     }
 
