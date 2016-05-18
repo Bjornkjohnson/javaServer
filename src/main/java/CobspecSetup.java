@@ -25,11 +25,14 @@ public class CobspecSetup {
     }
 
     private void buildMethodOptionsRoute() {
+
         router.addRoute("GET /method_options", new GenericResponseBuilder());
         router.addRoute("PUT /method_options", new GenericResponseBuilder());
         router.addRoute("POST /method_options", new GenericResponseBuilder());
         router.addRoute("HEAD /method_options", new GenericResponseBuilder());
-        router.addRoute("OPTIONS /method_options", new GenericResponseBuilder());
+        OptionsResponseBuilder optionsResponseBuilder = new OptionsResponseBuilder();
+        optionsResponseBuilder.allowAll();
+        router.addRoute("OPTIONS /method_options",  optionsResponseBuilder);
     }
 
     private void buildImageRoutes() {
