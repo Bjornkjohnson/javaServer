@@ -12,8 +12,6 @@ public class ImageResponseBuilder implements ResponseBuilderInterface {
 
     public void readFromFile(Request request) {
         String fullPath = directoryPath + request.getURL();
-        System.out.println(fullPath);
-
         File image = new File(fullPath);
         try {
             byte[] fileContent = Files.readAllBytes(image.toPath());
