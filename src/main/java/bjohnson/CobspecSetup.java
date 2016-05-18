@@ -16,6 +16,7 @@ public class CobspecSetup {
         buildFormRoute();
         buildMethodOptionsRoute();
         buildImageRoutes();
+        buildRedirectRoute();
         return router;
     }
 
@@ -24,6 +25,7 @@ public class CobspecSetup {
     }
 
     private void buildFormRoute() {
+        router.addRoute("GET /form", new FileReadResponseBuilder(publicDir));
         router.addRoute("PUT /form", new GenericResponseBuilder());
         router.addRoute("POST /form", new GenericResponseBuilder());
     }
@@ -45,4 +47,11 @@ public class CobspecSetup {
         router.addRoute("GET /image.png", new ImageResponseBuilder(publicDir));
 
     }
+
+    private void buildRedirectRoute() {
+        router.addRoute("GET /redirect", new RedirectResponseHandler("http://localhost:5000/"));
+
+    }
+
+
 }
