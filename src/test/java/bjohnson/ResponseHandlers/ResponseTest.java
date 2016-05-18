@@ -1,10 +1,11 @@
-package bjohnson.ResponseHandlerTests;
+package bjohnson.ResponseHandlers;
 
-import bjohnson.ResponseHandlers.Response;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class ResponseTest {
 
@@ -49,7 +50,18 @@ public class ResponseTest {
 
     @Test
     public void testGetStatus() throws Exception {
-        Assert.assertEquals("200 OK", testResponse.getStatus());
+        assertEquals("200 OK", testResponse.getStatus());
 
+    }
+
+    @Test
+    public void testGetHeaderReturnsHeaderAttribure() throws Exception {
+        testResponse.addHeader("Allow", "HEAD, POST, GET, OPTIONS, PUT");
+        assertEquals("HEAD, POST, GET, OPTIONS, PUT", testResponse.getHeader("Allow"));
+    }
+
+    @Test
+    public void testGetHeaderReturnsNotFoundForMissingHeader() throws Exception {
+        assertEquals("Header Not Found", testResponse.getHeader("Allow"));
     }
 }

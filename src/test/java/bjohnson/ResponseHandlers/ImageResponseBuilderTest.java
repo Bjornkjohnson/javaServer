@@ -1,9 +1,7 @@
-package bjohnson.ResponseHandlerTests;
+package bjohnson.ResponseHandlers;
 
 
 import bjohnson.Request;
-import bjohnson.ResponseHandlers.ImageResponseBuilder;
-import bjohnson.ResponseHandlers.Response;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

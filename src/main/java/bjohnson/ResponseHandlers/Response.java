@@ -53,4 +53,8 @@ public class Response {
     public String getStatus() {
         return status;
     }
+
+    public String getHeader(String location) {
+        return headers.getOrDefault(location, "Header Not Found");
+    }
 }
