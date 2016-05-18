@@ -17,6 +17,7 @@ public class CobspecSetup {
         buildMethodOptionsRoute();
         buildImageRoutes();
         buildRedirectRoute();
+        buildfile1Route();
         return router;
     }
 
@@ -50,6 +51,11 @@ public class CobspecSetup {
 
     private void buildRedirectRoute() {
         router.addRoute("GET /redirect", new RedirectResponseHandler("http://localhost:5000/"));
+
+    }
+
+    private void buildfile1Route() {
+        router.addRoute("GET /file1", new FileReadResponseBuilder(publicDir));
 
     }
 

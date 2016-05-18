@@ -8,10 +8,11 @@ import java.nio.file.Files;
 
 public class FileReadResponseBuilder implements ResponseBuilderInterface {
     private String directoryPath;
-    Response response = new Response();
+    private Response response;
 
     public FileReadResponseBuilder(String directoryPath) {
         this.directoryPath = directoryPath;
+        response = new Response();
     }
 
     public void readFromFile(Request request) {
