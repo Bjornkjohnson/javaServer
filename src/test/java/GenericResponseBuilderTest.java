@@ -1,4 +1,3 @@
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +12,6 @@ public class GenericResponseBuilderTest {
 
     @Test
     public void testRuturns200OK(){
-
-        assertEquals("200 OK", new GenericResponseBuilder().getResponse().getStatus());
+        assertEquals("200 OK", new GenericResponseBuilder().getResponse(new Request()).getStatus());
     }
 }

@@ -10,22 +10,19 @@ public class CobspecSetup {
     }
 
     private void buildRootRoute() {
-        router.addRoute("GET /", new Response());
+        router.addRoute("GET /", new GenericResponseBuilder());
     }
 
     private void buildFormRoute() {
-        router.addRoute("PUT /form", new Response());
-        router.addRoute("POST /form", new Response());
+        router.addRoute("PUT /form", new GenericResponseBuilder());
+        router.addRoute("POST /form", new GenericResponseBuilder());
     }
 
     private void buildMethodOptionsRoute() {
-        Response methodOptions = new Response();
-        methodOptions.addHeader("Allow", "GET,HEAD,POST,OPTIONS,PUT");
-        methodOptions.addHeader("Content-Length", "0");
-        router.addRoute("GET /method_options", methodOptions);
-        router.addRoute("PUT /method_options", methodOptions);
-        router.addRoute("POST /method_options", methodOptions);
-        router.addRoute("HEAD /method_options", methodOptions);
-        router.addRoute("OPTIONS /method_options",methodOptions);
+        router.addRoute("GET /method_options", new GenericResponseBuilder());
+        router.addRoute("PUT /method_options", new GenericResponseBuilder());
+        router.addRoute("POST /method_options", new GenericResponseBuilder());
+        router.addRoute("HEAD /method_options", new GenericResponseBuilder());
+        router.addRoute("OPTIONS /method_options", new GenericResponseBuilder());
     }
 }

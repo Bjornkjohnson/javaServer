@@ -29,8 +29,8 @@ public class Server {
                 out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in).buildRequest();
-                Response response = router.getResponse(request.getRoute());
-
+                ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
+                Response response = responseBuilder.getResponse(request);
                 byte[] responseBytes = response.buildStatusAndHeaderBytes();
                 if (request.getURL().equals("/image.jpeg")){
                     ImageResponseBuilder builder = new ImageResponseBuilder(publicDir);

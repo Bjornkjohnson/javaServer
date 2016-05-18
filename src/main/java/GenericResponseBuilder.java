@@ -1,5 +1,5 @@
-public class GenericResponseBuilder {
-    public Response getResponse() {
+public class GenericResponseBuilder implements ResponseBuilderInterface{
+    public Response getResponse(Request request) {
         return new Response();
     }
 }
