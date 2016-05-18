@@ -21,7 +21,7 @@ public class ResponseTest {
     @Test
     public void testNewResponseReturnsProtocolAndStatus() throws Exception {
         String rawString = "HTTP/1.1 200 OK\r\n\r\n";
-        assertArrayEquals(rawString.getBytes(), testResponse.buildStatusAndHeaderBytes());
+        assertArrayEquals(rawString.getBytes(), testResponse.buildResponse());
     }
 
     @Test
@@ -35,14 +35,14 @@ public class ResponseTest {
     public void testAddFourOhFourStatus() throws Exception {
         testResponse.setStatus("404 NOT FOUND");
         String rawString = "HTTP/1.1 404 NOT FOUND\r\n\r\n";
-        assertArrayEquals(rawString.getBytes(), testResponse.buildStatusAndHeaderBytes());
+        assertArrayEquals(rawString.getBytes(), testResponse.buildResponse());
     }
 
     @Test
     public void testContainsOptionsHeader() throws Exception {
         testResponse.addHeader("Allow", "HEAD, POST, GET, OPTIONS, PUT");
         String rawString = "HTTP/1.1 200 OK\r\nAllow: HEAD, POST, GET, OPTIONS, PUT\r\n\r\n";
-        assertArrayEquals(rawString.getBytes(), testResponse.buildStatusAndHeaderBytes());
+        assertArrayEquals(rawString.getBytes(), testResponse.buildResponse());
     }
 
     @Test

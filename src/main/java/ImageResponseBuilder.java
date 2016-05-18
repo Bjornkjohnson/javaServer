@@ -11,11 +11,15 @@ public class ImageResponseBuilder implements ResponseBuilderInterface {
     }
 
     public void readFromFile(Request request) {
-        File image = new File(directoryPath + request.getURL());
+        String fullPath = directoryPath + request.getURL();
+        System.out.println(fullPath);
+
+        File image = new File(fullPath);
         try {
             byte[] fileContent = Files.readAllBytes(image.toPath());
             response.setBody(fileContent);
         } catch (IOException e) {
+
             response.setStatus("404 NOT FOUND");
         }
     }

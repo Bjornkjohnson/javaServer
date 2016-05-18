@@ -7,10 +7,14 @@ public class Response {
     private byte[] body;
     private HashMap<String, String> headers = new HashMap<>();
 
-    public byte[] buildStatusAndHeaderBytes() {
+    public byte[] buildResponse() {
         String statusAndHeaders = PROTOCOL + status + CRLF +
                 buildHeader() + CRLF;
+        if (body != null) {
+            return combineByteArrays(statusAndHeaders.getBytes(), body);
+        }
         return statusAndHeaders.getBytes();
+
     }
 
     public void setBody(byte[] body) {
@@ -32,6 +36,13 @@ public class Response {
         return headerString;
     }
 
+    private byte[] combineByteArrays(byte[] one, byte[] two){
+        byte[] combined = new byte[one.length + two.length];
+
+        System.arraycopy(one,0,combined,0         ,one.length);
+        System.arraycopy(two,0,combined,one.length,two.length);
+        return combined;
+    }
 
     public byte[] getBody() {
         return body;

@@ -3,7 +3,7 @@ public class runner {
     public static void main(String [] args) {
         try {
             ArgsParser parser = new ArgsParser(args);
-            Router router = new CobspecSetup().buildRoutes();
+            Router router = new CobspecSetup(parser.getDirectory()).buildRoutes();
             Server server = new Server(router, parser.getDirectory());
             System.out.println("Starting Server on port " + parser.getPort() );
             server.start(parser.getPort());
