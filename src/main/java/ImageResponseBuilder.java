@@ -18,7 +18,7 @@ public class ImageResponseBuilder implements ResponseBuilderInterface {
             response.setBody(fileContent);
         } catch (IOException e) {
 
-            response.setStatus("404 NOT FOUND");
+           response = new FourOhFourBuilder().getResponse(request);
         }
     }
 
