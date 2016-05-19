@@ -14,7 +14,7 @@ public class RequestBuilderTest {
     private BufferedReader bufferedReader;
     @Before
     public void setUp() throws Exception {
-        String rawRequest = "GET / HTTP/1.1\r\nHost: www.w3.org\r\nHeader2: another\r\n\r\n";
+        String rawRequest = "GET / HTTP/1.1\r\nHost: www.w3.org\r\nHeader2: another\r\n\r\nI'm a body!\r\n";
         InputStream stream = new ByteArrayInputStream(rawRequest.getBytes());
         bufferedReader = new BufferedReader(new InputStreamReader(stream));
     }
@@ -28,6 +28,8 @@ public class RequestBuilderTest {
         assertEquals("HTTP/1.1", request.getProtocol());
         assertEquals("www.w3.org", request.getHeaders().get("Host"));
         assertEquals("another", request.getHeaders().get("Header2"));
+        assertEquals("I'm a body!", request.getBody());
+
 
     }
 

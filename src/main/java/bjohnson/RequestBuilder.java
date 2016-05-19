@@ -18,7 +18,12 @@ public class RequestBuilder {
     public Request buildRequest() throws Exception {
         buildRequestLine();
         buildHeaders();
+        buildBody();
         return request;
+    }
+
+    private void buildBody() throws Exception{
+        request.setBody(in.readLine());
     }
 
     private void buildHeaders() throws Exception{
