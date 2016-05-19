@@ -2,6 +2,7 @@ package bjohnson;
 
 import java.io.BufferedReader;
 import java.util.HashMap;
+import java.util.Map;
 
 public class RequestBuilder {
     private BufferedReader in;
@@ -23,7 +24,11 @@ public class RequestBuilder {
     }
 
     private void buildBody() throws Exception{
-        request.setBody(in.readLine());
+        Integer length = Integer.parseInt(headers.getOrDefault("Length", "0"));
+        System.out.println(length);
+        if (length > 0) {
+            request.setBody(in.readLine());
+        }
     }
 
     private void buildHeaders() throws Exception{
