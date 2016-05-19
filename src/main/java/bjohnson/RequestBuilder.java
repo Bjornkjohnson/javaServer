@@ -16,14 +16,17 @@ public class RequestBuilder {
     }
 
     public Request buildRequest() throws Exception {
-        String rawRequest = in.readLine();
+        buildRequestLine();
+        buildHeaders();
+        return request;
+    }
+
+    private void buildHeaders() throws Exception{
         String header;
         while ((header = in.readLine()).length() != 0){
             addHeader(header);
         }
         request.setHeaders(headers);
-        buildRequestLine(rawRequest);
-        return request;
     }
 
     private void addHeader(String header) {
@@ -31,7 +34,8 @@ public class RequestBuilder {
         headers.put(parsedHeader[0], parsedHeader[1]);
     }
 
-    private void buildRequestLine(String rawRequest){
+    private void buildRequestLine() throws Exception{
+        String rawRequest = in.readLine();
         extractMethod(rawRequest);
         extractURL(rawRequest);
         extractProtocol(rawRequest);
