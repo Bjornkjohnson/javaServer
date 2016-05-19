@@ -1,43 +1,34 @@
 package bjohnson;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class RequestBuilderTest {
     private BufferedReader bufferedReader;
     @Before
     public void setUp() throws Exception {
-        bufferedReader = mock(BufferedReader.class);
-
-
+        String rawRequest = "GET / HTTP/1.1\r\nHost: www.w3.org\r\nHeader2: another\r\n\r\n";
+        InputStream stream = new ByteArrayInputStream(rawRequest.getBytes());
+        bufferedReader = new BufferedReader(new InputStreamReader(stream));
     }
 
     @Test
-    public void buildSimpleGetRequest() throws Exception {
-        when(bufferedReader.readLine()).thenReturn("GET / HTTP/1.1");
+    public void buildGetRequest() throws Exception {
         RequestBuilder builder = new RequestBuilder(bufferedReader);
+        Request request = builder.buildRequest();
+        assertEquals("GET", request.getMethod());
+        assertEquals("/", request.getURL());
+        assertEquals("HTTP/1.1", request.getProtocol());
+        assertEquals("www.w3.org", request.getHeaders().get("Host"));
+        assertEquals("another", request.getHeaders().get("Header2"));
 
-        Assert.assertEquals("GET", builder.buildRequest().getMethod());
-        Assert.assertEquals("/", builder.buildRequest().getURL());
-        Assert.assertEquals("HTTP/1.1", builder.buildRequest().getProtocol());
     }
 
-    @Test
-    public void buildPostRequest() throws Exception {
-        when(bufferedReader.readLine()).thenReturn("POST / HTTP/1.1\r\n\r\nI'm a Body!");
-        RequestBuilder builder = new RequestBuilder(bufferedReader);
-
-        Assert.assertEquals("POST", builder.buildRequest().getMethod());
-        Assert.assertEquals("/", builder.buildRequest().getURL());
-        Assert.assertEquals("HTTP/1.1", builder.buildRequest().getProtocol());
-        Assert.assertEquals("I'm a Body!", builder.buildRequest().getBody());
-
-    }
 }
