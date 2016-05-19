@@ -4,31 +4,36 @@ import java.io.BufferedReader;
 
 public class RequestBuilder {
     private BufferedReader in;
+    private Request request;
+
 
     public RequestBuilder(BufferedReader in) throws Exception{
         this.in = in;
+        request = new Request();
+
     }
 
     public Request buildRequest() throws Exception {
-        Request request = new Request();
         String rawRequest = in.readLine();
-        request.setMethod(extractMethod(rawRequest));
-        request.setURL(extractURL(rawRequest));
-        request.setProtocol(extractProtocol(rawRequest));
+        buildRequestLine(rawRequest);
         return request;
     }
 
-
-
-    private String extractMethod(String rawRequest) {
-        return rawRequest.split(" ")[0];
+    private void buildRequestLine(String rawRequest){
+        extractMethod(rawRequest);
+        extractURL(rawRequest);
+        extractProtocol(rawRequest);
     }
 
-    private String extractURL(String rawRequest) {
-        return rawRequest.split(" ")[1];
+    private void extractMethod(String rawRequest) {
+        request.setMethod(rawRequest.split(" ")[0]);
     }
 
-    private String extractProtocol(String rawRequest) {
-        return rawRequest.split(" ")[2];
+    private void extractURL(String rawRequest) {
+        request.setURL(rawRequest.split(" ")[1]);
+    }
+
+    private void extractProtocol(String rawRequest) {
+        request.setProtocol(rawRequest.split(" ")[2]);
     }
 }

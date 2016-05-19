@@ -28,4 +28,16 @@ public class RequestBuilderTest {
         Assert.assertEquals("/", builder.buildRequest().getURL());
         Assert.assertEquals("HTTP/1.1", builder.buildRequest().getProtocol());
     }
+
+    @Test
+    public void buildPostRequest() throws Exception {
+        when(bufferedReader.readLine()).thenReturn("POST / HTTP/1.1\r\n\r\nI'm a Body!");
+        RequestBuilder builder = new RequestBuilder(bufferedReader);
+
+        Assert.assertEquals("POST", builder.buildRequest().getMethod());
+        Assert.assertEquals("/", builder.buildRequest().getURL());
+        Assert.assertEquals("HTTP/1.1", builder.buildRequest().getProtocol());
+        Assert.assertEquals("I'm a Body!", builder.buildRequest().getBody());
+
+    }
 }
