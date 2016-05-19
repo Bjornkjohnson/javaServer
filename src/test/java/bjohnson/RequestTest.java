@@ -5,13 +5,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.assertEquals;
 
 public class RequestTest {
-    String rawRequest;
+    private String rawRequest;
+    private Request testRequest;
 
     @Before
     public void setUp() throws Exception {
+        testRequest = new Request();
+
         rawRequest = "GET / HTTP/1.1";
     }
 
@@ -23,30 +28,40 @@ public class RequestTest {
 
     @Test
     public void testRequestHasGet() throws Exception {
-        Request testRequest = new Request();
         testRequest.setMethod("GET");
-        Assert.assertEquals("GET", testRequest.getMethod());
+        assertEquals("GET", testRequest.getMethod());
     }
 
     @Test
     public void testRequestHasURL() throws Exception {
-        Request testRequest = new Request();
         testRequest.setURL("/");
-        Assert.assertEquals("/", testRequest.getURL());
+        assertEquals("/", testRequest.getURL());
     }
 
     @Test
     public void testRequestHasProtocol() throws Exception {
-        Request testRequest = new Request();
         testRequest.setProtocol("HTTP/1.1");
-        Assert.assertEquals("HTTP/1.1", testRequest.getProtocol());
+        assertEquals("HTTP/1.1", testRequest.getProtocol());
     }
 
     @Test
     public void testGetRoute() throws Exception {
-        Request testRequest = new Request();
         testRequest.setMethod("GET");
         testRequest.setURL("/");
-        Assert.assertEquals("GET /", testRequest.getRoute());
+        assertEquals("GET /", testRequest.getRoute());
+    }
+
+    @Test
+    public void testSetBody() throws Exception {
+        testRequest.setBody("I'm a Body!");
+        assertEquals("I'm a Body!", testRequest.getBody());
+    }
+
+    @Test
+    public void testSetHeaders() throws Exception {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("HEADER1", "Header Details");
+        testRequest.setHeaders(headers);
+        assertEquals("Header Details", testRequest.getHeaders().get("HEADER1"));
     }
 }

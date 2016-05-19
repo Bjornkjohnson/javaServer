@@ -1,9 +1,13 @@
 package bjohnson;
 
+import java.util.HashMap;
+
 public class Request {
-    String method;
-    String URL;
-    String protocol;
+    private String method;
+    private String URL;
+    private String protocol;
+    private String body;
+    private HashMap<String, String> headers;
 
     public void setMethod(String method) {
         this.method = method;
@@ -31,5 +35,21 @@ public class Request {
 
     public String getRoute() {
         return this.method + " " + this.URL;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setHeaders(HashMap<String, String> headers) {
+        this.headers = headers;
+    }
+
+    public HashMap<String, String> getHeaders() {
+        return headers;
     }
 }
