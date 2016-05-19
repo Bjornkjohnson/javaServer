@@ -6,10 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.nio.file.Files;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class FileWriterResponseBuilderTest {
     private Request request;
@@ -21,7 +21,8 @@ public class FileWriterResponseBuilderTest {
     @Before
     public void setUp() throws Exception {
         request = new Request();
-        request.setMethod("GET");
+        request.setMethod("POST");
+        request.setURL("/form");
         filePath = System.getProperty("user.dir") + "/src/test/java/bjohnson/testResource";
         url = "/form";
         file = new File(filePath + url);
@@ -30,8 +31,7 @@ public class FileWriterResponseBuilderTest {
 
     @Test
     public void testSuccessfullWriteReturnTwoHundredOK()throws Exception{
-        request.setMethod("POST");
-        request.setURL("/form");
+        request.setBody("Test Stuff");
         FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
         Response response = fileWriterResponseBuilder.getResponse(request);
         assertEquals("200 OK", response.getStatus());
@@ -39,22 +39,25 @@ public class FileWriterResponseBuilderTest {
 
     @Test
     public void testWriterCreatesFileIfNonExists()throws Exception{
-        request.setMethod("POST");
-        request.setURL("/form");
+        request.setBody("Test Stuff");
         FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
         fileWriterResponseBuilder.getResponse(request);
         assertTrue(file.exists());
     }
 
-//    @Test
-//    public void testWriterWritesToFile()throws Exception{
-//        request.setMethod("POST");
-//        request.setURL("/form");
-//        FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
-//        fileWriterResponseBuilder.getResponse(request);
-//        String output =
-//        assertTrue(file.exists());
-//    }
+    @Test
+    public void testWriterWritesToFile()throws Exception{
+        request.setBody("Test Stuff");
+        FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
+        fileWriterResponseBuilder.getResponse(request);
+        assertEquals("Test Stuff", checkFileContents());
+    }
+
+    private String checkFileContents() throws IOException{
+        file = new File(filePath + url);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        return br.readLine();
+    }
 
     @After
     public void tearDown(){
