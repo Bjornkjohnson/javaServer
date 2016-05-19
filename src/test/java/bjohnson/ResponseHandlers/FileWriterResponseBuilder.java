@@ -18,11 +18,18 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
     }
 
     public void writeToFile(Request request) {
+        System.out.println("Enter function");
+
         String fullPath = filePath + request.getURL();
-        File outFile = new File(fullPath + request.getURL());
+        File outFile = new File(fullPath);
+        System.out.println(fullPath);
+
         try {
             if (!outFile.exists()) {
+                System.out.println("Make File");
                 outFile.createNewFile();
+                System.out.println("File Made");
+
             }
 
             FileWriter fw = new FileWriter(outFile.getAbsoluteFile());
@@ -37,7 +44,7 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
 
     @Override
     public Response getResponse(Request request) {
-
+        writeToFile(request);
         return response;
     }
 }
