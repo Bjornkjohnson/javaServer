@@ -32,6 +32,8 @@ public class ResponseTest {
         byte[] bodyBytes = "Body".getBytes();
         testResponse.setBody(bodyBytes);
         Assert.assertArrayEquals(bodyBytes, testResponse.getBody());
+        assertEquals("4", testResponse.getHeader("Content-Length"));
+
     }
 
     @Test

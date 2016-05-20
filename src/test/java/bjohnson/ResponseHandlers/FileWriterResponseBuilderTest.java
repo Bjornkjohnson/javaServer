@@ -23,6 +23,7 @@ public class FileWriterResponseBuilderTest {
         request = new Request();
         request.setMethod("POST");
         request.setURL("/form");
+
         filePath = System.getProperty("user.dir") + "/src/test/java/bjohnson/testResource";
         url = "/form";
         file = new File(filePath + url);

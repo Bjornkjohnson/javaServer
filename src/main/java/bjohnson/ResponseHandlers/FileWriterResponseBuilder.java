@@ -6,7 +6,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FileWriterResponseBuilder implements ResponseBuilderInterface {
     private Response response;
@@ -18,7 +19,6 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
     }
 
     public void writeToFile(Request request) {
-
         String fullPath = filePath + request.getURL();
         File outFile = new File(fullPath);
 
@@ -29,8 +29,11 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
 
             FileWriter fw = new FileWriter(outFile.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
+
             bw.write(request.getBody());
+
             bw.close();
+
         } catch (IOException e) {
 
             response = new FourOhFourResponseBuilder().getResponse(request);

@@ -20,7 +20,14 @@ public class Response {
     }
 
     public void setBody(byte[] body) {
+        setContentLength(body);
         this.body = body;
+    }
+
+    private void setContentLength(byte[] body) {
+        String bodyString = new String(body);
+        String contentLength = String.valueOf(bodyString.length());
+        headers.put("Content-Length", contentLength);
     }
 
     public void setStatus(String status) {

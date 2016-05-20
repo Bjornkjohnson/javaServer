@@ -24,10 +24,14 @@ public class RequestBuilder {
     }
 
     private void buildBody() throws Exception{
-        Integer length = Integer.parseInt(headers.getOrDefault("Length", "0"));
-        System.out.println(length);
+        Integer length = Integer.parseInt(headers.getOrDefault("Content-Length", "0"));
+
         if (length > 0) {
-            request.setBody(in.readLine());
+            StringBuilder body = new StringBuilder();
+            for (int i = 0; i < length; i++) {
+                body.append((char) in.read());
+            }
+            request.setBody(body.toString());
         }
     }
 
