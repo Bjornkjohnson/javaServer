@@ -61,7 +61,7 @@ public class CobspecSetup {
     }
 
     private void buildRedirectRoute() {
-        router.addRoute("GET /redirect", new RedirectResponseHandler("http://localhost:5000/"));
+        router.addRoute("GET /redirect", new RedirectResponseBuilder("http://localhost:5000/"));
 
     }
 

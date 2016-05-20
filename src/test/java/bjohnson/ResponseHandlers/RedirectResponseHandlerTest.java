@@ -11,7 +11,7 @@ public class RedirectResponseHandlerTest {
         Request request = new Request();
         request.setMethod("GET");
         request.setURL("/redirect");
-        RedirectResponseHandler redirectResponseHandler = new RedirectResponseHandler("/redirect/address");
+        RedirectResponseBuilder redirectResponseHandler = new RedirectResponseBuilder("/redirect/address");
         Response response = redirectResponseHandler.getResponse(request);
         assertEquals("302 FOUND", response.getStatus());
     }
@@ -21,7 +21,7 @@ public class RedirectResponseHandlerTest {
         Request request = new Request();
         request.setMethod("GET");
         request.setURL("/redirect");
-        RedirectResponseHandler redirectResponseHandler = new RedirectResponseHandler("/redirect/address");
+        RedirectResponseBuilder redirectResponseHandler = new RedirectResponseBuilder("/redirect/address");
         Response response = redirectResponseHandler.getResponse(request);
         assertEquals("/redirect/address", response.getHeader("Location"));
     }
