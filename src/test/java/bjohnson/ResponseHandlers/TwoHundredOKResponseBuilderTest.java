@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GenericResponseBuilderTest {
+public class TwoHundredOKResponseBuilderTest {
 
     @Before
     public void setUp() throws Exception {
@@ -14,6 +14,6 @@ public class GenericResponseBuilderTest {
 
     @Test
     public void testRuturns200OK(){
-        Assert.assertEquals("200 OK", new GenericResponseBuilder().getResponse(new Request()).getStatus());
+        Assert.assertEquals("200 OK", new TwoHundredOKResponseBuilder().getResponse(new Request()).getStatus());
     }
 }

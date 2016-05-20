@@ -28,9 +28,7 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
 
             FileWriter fw = new FileWriter(outFile.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
-
             bw.write(request.getBody());
-
             bw.close();
 
         } catch (IOException e) {

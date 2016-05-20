@@ -6,10 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.file.Files;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 public class FileWriterResponseBuilderTest {
     private Request request;
