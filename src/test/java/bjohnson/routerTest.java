@@ -14,20 +14,20 @@ public class routerTest {
     @Before
     public void setUp() throws Exception {
         router = new Router();
-        router.addRoute("GET /", new GenericResponseBuilder());
-        router.addRoute("PUT /", new GenericResponseBuilder());
-        router.addRoute("POST /", new GenericResponseBuilder());
+        router.addRoute("GET /", new TwoHundredOKResponseBuilder());
+        router.addRoute("PUT /", new TwoHundredOKResponseBuilder());
+        router.addRoute("POST /", new TwoHundredOKResponseBuilder());
     }
 
     @Test
     public void testAddingRoute() {
-        router.addRoute("GET /", new GenericResponseBuilder());
+        router.addRoute("GET /", new TwoHundredOKResponseBuilder());
         assertTrue(router.routeExists("GET /"));
     }
 
     @Test
     public void testRouteThatExistsReturns200ok() {
-        assertThat(router.getResponse("GET /"), instanceOf(GenericResponseBuilder.class));
+        assertThat(router.getResponse("GET /"), instanceOf(TwoHundredOKResponseBuilder.class));
     }
 
 
