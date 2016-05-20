@@ -25,8 +25,7 @@ public class Response {
     }
 
     private void setContentLength(byte[] body) {
-        String bodyString = new String(body);
-        String contentLength = String.valueOf(bodyString.length());
+        String contentLength = String.valueOf(body.length);
         headers.put("Content-Length", contentLength);
     }
 

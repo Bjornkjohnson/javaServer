@@ -18,4 +18,8 @@ public class OptionsResponseBuilder implements ResponseBuilderInterface {
         return response;
     }
 
+    public void setHeaders(String headers) {
+        response.addHeader("Allow",headers);
+
+    }
 }

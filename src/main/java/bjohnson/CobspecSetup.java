@@ -15,6 +15,7 @@ public class CobspecSetup {
         buildRootRoute();
         buildFormRoute();
         buildMethodOptionsRoute();
+        buildMethodOptions2Route();
         buildImageRoutes();
         buildRedirectRoute();
         buildfile1Route();
@@ -42,6 +43,14 @@ public class CobspecSetup {
         OptionsResponseBuilder optionsResponseBuilder = new OptionsResponseBuilder();
         optionsResponseBuilder.allowAll();
         router.addRoute("OPTIONS /method_options",  optionsResponseBuilder);
+    }
+
+    private void buildMethodOptions2Route() {
+
+        router.addRoute("GET /method_options2", new GenericResponseBuilder());
+        OptionsResponseBuilder optionsResponseBuilder = new OptionsResponseBuilder();
+        optionsResponseBuilder.setHeaders("GET,OPTIONS");
+        router.addRoute("OPTIONS /method_options2",  optionsResponseBuilder);
     }
 
     private void buildImageRoutes() {
