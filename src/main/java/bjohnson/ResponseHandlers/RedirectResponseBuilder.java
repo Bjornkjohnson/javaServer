@@ -2,11 +2,11 @@ package bjohnson.ResponseHandlers;
 
 import bjohnson.Request;
 
-public class RedirectResponseHandler implements ResponseBuilderInterface{
+public class RedirectResponseBuilder implements ResponseBuilderInterface{
     private Response response;
     private String redirectAddress;
 
-    public RedirectResponseHandler(String redirectAddress) {
+    public RedirectResponseBuilder(String redirectAddress) {
         this.redirectAddress = redirectAddress;
     }
 
