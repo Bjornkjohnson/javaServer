@@ -55,6 +55,7 @@ public class RequestTest {
     public void testSetBody() throws Exception {
         testRequest.setBody("I'm a Body!");
         assertEquals("I'm a Body!", testRequest.getBody());
+        assertEquals("11", testRequest.getHeaders().get("Content-Length"));
     }
 
     @Test
@@ -63,5 +64,11 @@ public class RequestTest {
         headers.put("HEADER1", "Header Details");
         testRequest.setHeaders(headers);
         assertEquals("Header Details", testRequest.getHeaders().get("HEADER1"));
+    }
+
+    @Test
+    public void testAddHeader() throws Exception {
+        testRequest.addHeader("Content-Length", "5");
+        assertEquals("5", testRequest.getHeaders().get("Content-Length"));
     }
 }

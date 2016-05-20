@@ -3,11 +3,11 @@ package bjohnson;
 import java.util.HashMap;
 
 public class Request {
-    private String method;
-    private String URL;
-    private String protocol;
-    private String body;
-    private HashMap<String, String> headers;
+    private String method = "";
+    private String URL = "";
+    private String protocol = "";
+    private String body = "";
+    private HashMap<String, String> headers = new HashMap<>();
 
     public void setMethod(String method) {
         this.method = method;
@@ -38,7 +38,13 @@ public class Request {
     }
 
     public void setBody(String body) {
+        setContentLength(body);
         this.body = body;
+    }
+
+    private void setContentLength(String body) {
+        String contentLength = String.valueOf(body.length());
+        headers.put("Content-Length", contentLength);
     }
 
     public String getBody() {
@@ -51,5 +57,9 @@ public class Request {
 
     public HashMap<String, String> getHeaders() {
         return headers;
+    }
+
+    public void addHeader(String headerName, String headerContent) {
+        headers.put(headerName, headerContent);
     }
 }
