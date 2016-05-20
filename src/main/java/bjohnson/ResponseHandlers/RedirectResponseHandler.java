@@ -8,11 +8,11 @@ public class RedirectResponseHandler implements ResponseBuilderInterface{
 
     public RedirectResponseHandler(String redirectAddress) {
         this.redirectAddress = redirectAddress;
-        response = new Response();
     }
 
     @Override
     public Response getResponse(Request request) {
+        response = new Response();
         response.setStatus("302 FOUND");
         response.addHeader("Location", redirectAddress);
         return response;

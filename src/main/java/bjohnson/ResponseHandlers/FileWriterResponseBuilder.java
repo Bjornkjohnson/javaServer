@@ -14,7 +14,6 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
     private String filePath;
 
     public FileWriterResponseBuilder(String filePath) {
-        this.response = new Response();
         this.filePath = filePath;
     }
 
@@ -42,6 +41,7 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
 
     @Override
     public Response getResponse(Request request) {
+        this.response = new Response();
         writeToFile(request);
         return response;
     }
