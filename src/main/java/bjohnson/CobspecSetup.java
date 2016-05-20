@@ -28,7 +28,9 @@ public class CobspecSetup {
     private void buildFormRoute() {
         router.addRoute("GET /form", new FileReadResponseBuilder(publicDir));
         router.addRoute("PUT /form", new FileWriterResponseBuilder(publicDir));
-        router.addRoute("POST /form", new GenericResponseBuilder());
+        router.addRoute("POST /form", new FileWriterResponseBuilder(publicDir));
+        router.addRoute("DELETE /form", new FileDeleteResponseBuilder(publicDir));
+
     }
 
     private void buildMethodOptionsRoute() {

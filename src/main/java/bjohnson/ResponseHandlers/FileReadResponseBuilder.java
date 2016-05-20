@@ -12,7 +12,6 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
 
     public FileReadResponseBuilder(String directoryPath) {
         this.directoryPath = directoryPath;
-        response = new Response();
     }
 
     public void readFromFile(Request request) {
@@ -27,6 +26,7 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
     }
 
     public Response getResponse(Request request) {
+        response = new Response();
         readFromFile(request);
         return response;
     }
