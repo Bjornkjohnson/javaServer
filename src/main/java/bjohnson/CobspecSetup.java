@@ -63,9 +63,9 @@ public class CobspecSetup {
     }
 
     private void buildImageRoutes() {
-        router.addRoute("GET /image.jpeg", new ImageResponseBuilder(publicDir));
-        router.addRoute("GET /image.gif", new ImageResponseBuilder(publicDir));
-        router.addRoute("GET /image.png", new ImageResponseBuilder(publicDir));
+        router.addRoute("GET /image.jpeg", new FileReadResponseBuilder(publicDir));
+        router.addRoute("GET /image.gif", new FileReadResponseBuilder(publicDir));
+        router.addRoute("GET /image.png", new FileReadResponseBuilder(publicDir));
 
     }
 
@@ -77,6 +77,7 @@ public class CobspecSetup {
     private void buildFileRoutes() {
         router.addRoute("GET /file1", new FileReadResponseBuilder(publicDir));
         router.addRoute("GET /text-file.txt", new FileReadResponseBuilder(publicDir));
+        router.addRoute("GET /partial_content.txt", new FileReadResponseBuilder(publicDir));
 
 
     }
