@@ -18,18 +18,13 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
         this.directoryPath = directoryPath;
     }
 
-
-
     public void readFromFile() {
         String fullPath = directoryPath + request.getURL();
         File image = new File(fullPath);
         try {
             byte[] fileContent = Files.readAllBytes(image.toPath());
-            if (isPartial()){
-                endRange = fileContent.length;
-                setContentRange();
-                response.setStatus("206 PARTIAL CONTENT");
-                response.setBody(Arrays.copyOfRange(fileContent, startRange, endRange));
+            if (isPartialFileRequest()){
+                buildPartialResponse(fileContent);
             } else {
                 response.setBody(fileContent);
             }
@@ -38,11 +33,20 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
         }
     }
 
-    private void setContentRange() {
+    private void buildPartialResponse(byte[] fileContent) {
+        endRange = fileContent.length;
+        setContentRange();
+        response.setStatus("206 PARTIAL CONTENT");
+        response.setBody(Arrays.copyOfRange(fileContent, startRange, endRange));
+    }
+
+    private String[] parseContentRangeHeader() {
         String rangeString = request.getHeaders().get("Range");
-        String range[] = rangeString.split("=")[1].split("");
+        return rangeString.split("=")[1].split("");
+    }
 
-
+    private void setContentRange() {
+        String range[] = parseContentRangeHeader();
         if (range.length == 3) {
             startRange = Integer.parseInt(range[0]);
             endRange = Integer.parseInt(range[2]) + 1;
@@ -54,7 +58,7 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
         }
     }
 
-    private Boolean isPartial() {
+    private Boolean isPartialFileRequest() {
         return request.getHeaders().containsKey("Range");
     }
 
