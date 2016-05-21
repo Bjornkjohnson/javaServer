@@ -8,7 +8,7 @@ import java.nio.file.Files;
 
 public class ImageResponseBuilder implements ResponseBuilderInterface {
     private String directoryPath;
-    Response response = new Response();
+    private Response response;
 
     public ImageResponseBuilder(String directoryPath) {
         this.directoryPath = directoryPath;
@@ -21,12 +21,12 @@ public class ImageResponseBuilder implements ResponseBuilderInterface {
             byte[] fileContent = Files.readAllBytes(image.toPath());
             response.setBody(fileContent);
         } catch (IOException e) {
-
            response = new FourOhFourResponseBuilder().getResponse(request);
         }
     }
 
     public Response getResponse(Request request) {
+        response = new Response();
         readFromFile(request);
         return response;
     }

@@ -6,6 +6,8 @@ import bjohnson.ResponseHandlers.ResponseBuilderInterface;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Server {
     private final Router router;
@@ -33,6 +35,13 @@ public class Server {
                 out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in).buildRequest();
+
+
+                HashMap<String, String> map = request.getHeaders();
+                for (Map.Entry<String,String> entry : map.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                }
+
                 ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
                 Response response = responseBuilder.getResponse(request);
                 out.write(response.buildResponse());
