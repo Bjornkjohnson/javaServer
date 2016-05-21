@@ -22,7 +22,7 @@ public class routerTest {
     @Test
     public void testAddingRoute() {
         router.addRoute("GET /", new TwoHundredOKResponseBuilder());
-        assertTrue(router.routeExists("GET /"));
+        assertTrue(router.routeExists("/"));
     }
 
     @Test
@@ -34,6 +34,11 @@ public class routerTest {
     @Test
     public void testRouteThatDoesNotExistsReturnsFourOhFour() {
         assertThat(router.getResponse("GET /fakeRoute"), instanceOf(FourOhFourResponseBuilder.class));
+    }
+
+    @Test
+    public void testRouteWithoutMethodReturnsFourOhFive() {
+        assertThat(router.getResponse("HEAD /"), instanceOf(FourOhFiveResponseBuilder.class));
     }
 
 

@@ -18,12 +18,21 @@ public class CobspecSetup {
         buildMethodOptions2Route();
         buildImageRoutes();
         buildRedirectRoute();
-        buildfile1Route();
+        buildFileRoutes();
+        teaPotRoutes();
         return router;
     }
 
     private void buildRootRoute() {
         router.addRoute("GET /", new TwoHundredOKResponseBuilder());
+        router.addRoute("HEAD /", new HeadResponseBuilder());
+
+    }
+
+    private void teaPotRoutes() {
+        router.addRoute("GET /coffee", new FourEighteenResponseBuilder());
+        router.addRoute("GET /tea", new HeadResponseBuilder());
+
     }
 
     private void buildFormRoute() {
@@ -65,8 +74,10 @@ public class CobspecSetup {
 
     }
 
-    private void buildfile1Route() {
+    private void buildFileRoutes() {
         router.addRoute("GET /file1", new FileReadResponseBuilder(publicDir));
+        router.addRoute("GET /text-file.txt", new FileReadResponseBuilder(publicDir));
+
 
     }
 
