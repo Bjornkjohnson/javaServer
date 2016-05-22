@@ -30,8 +30,8 @@ public class RequestBuilderTest {
         assertEquals("11", request.getHeaders().get("Content-Length"));
         assertEquals("I'm a body!", request.getBody());
         assertEquals(2, request.getParams().length);
-        assertEquals("variable_1=Hi There", request.getParams()[0]);
-        assertEquals("variable_2=Goodbye", request.getParams()[1]);
+        assertEquals("variable_1 = Hi There", request.getParams()[0]);
+        assertEquals("variable_2 = Goodbye", request.getParams()[1]);
     }
 
 }

@@ -29,7 +29,8 @@ public class ParameterParser {
 
     public String[] parseParameters(String rawRequest) {
         String rawParams = removeRoute(rawRequest);
-        String splitParams[] = splitParams(rawParams);
+        String paddedRawParams = padEqualsWithSpaces(rawParams);
+        String splitParams[] = splitParams(paddedRawParams);
 
         for (int i = 0; i < splitParams.length; i++){
             splitParams[i] = decodeParams(splitParams[i]);
@@ -37,6 +38,10 @@ public class ParameterParser {
 
         return splitParams;
 
+    }
+
+    private String padEqualsWithSpaces(String rawParams) {
+        return rawParams.replaceAll("=", " = ");
     }
 
     private String removeRoute(String rawRequest) {

@@ -19,8 +19,13 @@ public class CobspecSetup {
         buildImageRoutes();
         buildRedirectRoute();
         buildFileRoutes();
-        teaPotRoutes();
+        buildTeaPotRoutes();
+        buildParamEchoRoute();
         return router;
+    }
+
+    private void buildParamEchoRoute() {
+        router.addRoute("GET /parameters", new EchoParamsResponseBuilder());
     }
 
     private void buildRootRoute() {
@@ -29,7 +34,7 @@ public class CobspecSetup {
 
     }
 
-    private void teaPotRoutes() {
+    private void buildTeaPotRoutes() {
         router.addRoute("GET /coffee", new FourEighteenResponseBuilder());
         router.addRoute("GET /tea", new HeadResponseBuilder());
 
