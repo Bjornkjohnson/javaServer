@@ -1,7 +1,6 @@
 package bjohnson;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,7 +74,7 @@ public class RequestTest {
     @Test
     public void testAddParams() throws Exception {
         String params[] = new String[]{"Hi", "There"};
-        testRequest.addParams(params);
+        testRequest.setParams(params);
         assertEquals(2, testRequest.getParams().length);
         assertEquals("Hi", testRequest.getParams()[0]);
         assertEquals("There", testRequest.getParams()[1]);

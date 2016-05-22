@@ -15,41 +15,25 @@ public class ParameterParserTest {
 
     @Before
     public void setUp() throws Exception{
-        decoder = new HashMap<>();
-        decoder.put("\\%20", " ");
-        decoder.put("\\%2C", ",");
-        decoder.put("\\%3C", "<");
-        decoder.put("\\%3E", ">");
-        decoder.put("\\%3D", "=");
-        decoder.put("\\%3B", ";");
-        decoder.put("\\%2B", "+");
-        decoder.put("\\%26", "&");
-        decoder.put("\\%40", "@");
-        decoder.put("\\%23", "#");
-        decoder.put("\\%24", "\\$");
-        decoder.put("\\%5B", "[");
-        decoder.put("\\%5D", "]");
-        decoder.put("\\%3A", ":");
-        decoder.put("\\%22", "\"");
-        decoder.put("\\%3F", "?");
+
     }
 
 
     @Test
     public void TestReturnsArrayOfSizeOneForSimpleString() throws Exception {
-        ParameterParser parameterParser = new ParameterParser(decoder);
+        ParameterParser parameterParser = new ParameterParser();
         assertEquals(1, parameterParser.parseParameters("/route?params").length);
     }
 
     @Test
     public void TestRemovesRoute() throws Exception {
-        ParameterParser parameterParser = new ParameterParser(decoder);
+        ParameterParser parameterParser = new ParameterParser();
         assertEquals("params", parameterParser.parseParameters("/route?params")[0]);
     }
 
     @Test
     public void TestParserSplitsOnAmpersand() throws Exception {
-        ParameterParser parameterParser = new ParameterParser(decoder);
+        ParameterParser parameterParser = new ParameterParser();
         assertEquals(2, parameterParser.parseParameters("/route?params&otherParams").length);
         assertEquals("params", parameterParser.parseParameters("/route?params&otherParams")[0]);
         assertEquals("otherParams", parameterParser.parseParameters("/route?params&otherParams")[1]);
@@ -58,7 +42,7 @@ public class ParameterParserTest {
 
     @Test
     public void TestParserReplacesAllCharactersGivenAHash() throws Exception {
-        ParameterParser parameterParser = new ParameterParser(decoder);
+        ParameterParser parameterParser = new ParameterParser();
         String paramsArray[] = parameterParser.parseParameters(rawParams);
         assertEquals(2, paramsArray.length);
         assertEquals(parsedParams1, paramsArray[0]);

@@ -6,8 +6,24 @@ import java.util.Map;
 public class ParameterParser {
     private HashMap<String, String> decoder;
 
-    ParameterParser(HashMap<String, String> decoder) {
-        this.decoder = decoder;
+    ParameterParser() {
+        decoder = new HashMap<>();
+        decoder.put("\\%20", " ");
+        decoder.put("\\%2C", ",");
+        decoder.put("\\%3C", "<");
+        decoder.put("\\%3E", ">");
+        decoder.put("\\%3D", "=");
+        decoder.put("\\%3B", ";");
+        decoder.put("\\%2B", "+");
+        decoder.put("\\%26", "&");
+        decoder.put("\\%40", "@");
+        decoder.put("\\%23", "#");
+        decoder.put("\\%24", "\\$");
+        decoder.put("\\%5B", "[");
+        decoder.put("\\%5D", "]");
+        decoder.put("\\%3A", ":");
+        decoder.put("\\%22", "\"");
+        decoder.put("\\%3F", "?");
     }
 
 

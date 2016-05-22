@@ -64,7 +64,7 @@ public class Request {
         headers.put(headerName, headerContent);
     }
 
-    public void addParams(String[] params) {
+    public void setParams(String[] params) {
         this.params = params;
     }
 

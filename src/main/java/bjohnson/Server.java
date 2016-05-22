@@ -34,7 +34,7 @@ public class Server {
                 clientSocket = listener.accept();
                 out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                Request request = new RequestBuilder(in).buildRequest();
+                Request request = new RequestBuilder(in, new ParameterParser()).buildRequest();
 
 
                 HashMap<String, String> map = request.getHeaders();
