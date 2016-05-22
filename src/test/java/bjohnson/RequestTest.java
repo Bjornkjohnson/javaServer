@@ -1,14 +1,22 @@
+package bjohnson;
+
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
 public class RequestTest {
-    String rawRequest;
+    private String rawRequest;
+    private Request testRequest;
 
     @Before
     public void setUp() throws Exception {
+        testRequest = new Request();
+
         rawRequest = "GET / HTTP/1.1";
     }
 
@@ -20,30 +28,47 @@ public class RequestTest {
 
     @Test
     public void testRequestHasGet() throws Exception {
-        Request testRequest = new Request();
         testRequest.setMethod("GET");
         assertEquals("GET", testRequest.getMethod());
     }
 
     @Test
     public void testRequestHasURL() throws Exception {
-        Request testRequest = new Request();
         testRequest.setURL("/");
         assertEquals("/", testRequest.getURL());
     }
 
     @Test
     public void testRequestHasProtocol() throws Exception {
-        Request testRequest = new Request();
         testRequest.setProtocol("HTTP/1.1");
         assertEquals("HTTP/1.1", testRequest.getProtocol());
     }
 
     @Test
     public void testGetRoute() throws Exception {
-        Request testRequest = new Request();
         testRequest.setMethod("GET");
         testRequest.setURL("/");
         assertEquals("GET /", testRequest.getRoute());
+    }
+
+    @Test
+    public void testSetBody() throws Exception {
+        testRequest.setBody("I'm a Body!");
+        assertEquals("I'm a Body!", testRequest.getBody());
+        assertEquals("11", testRequest.getHeaders().get("Content-Length"));
+    }
+
+    @Test
+    public void testSetHeaders() throws Exception {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("HEADER1", "Header Details");
+        testRequest.setHeaders(headers);
+        assertEquals("Header Details", testRequest.getHeaders().get("HEADER1"));
+    }
+
+    @Test
+    public void testAddHeader() throws Exception {
+        testRequest.addHeader("Content-Length", "5");
+        assertEquals("5", testRequest.getHeaders().get("Content-Length"));
     }
 }

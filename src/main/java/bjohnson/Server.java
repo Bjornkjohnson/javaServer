@@ -1,16 +1,26 @@
+package bjohnson;
+
+import bjohnson.ResponseHandlers.Response;
+import bjohnson.ResponseHandlers.ResponseBuilderInterface;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Server {
     private final Router router;
+    private final String publicDir;
     private ServerSocket listener;
     private Socket clientSocket;
-    private PrintWriter out;
+    private OutputStream out;
     BufferedReader in;
 
-    public Server(Router router){
+    public Server(Router router, String publicDir){
         this.router = router;
+        this.publicDir = publicDir;
+        System.out.println(this.publicDir);
     }
 
     public boolean isRunning(){
@@ -22,17 +32,20 @@ public class Server {
             listener = new ServerSocket(port);
             while (isRunning()) {
                 clientSocket = listener.accept();
-                out = new PrintWriter(clientSocket.getOutputStream(), true);
+                out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in).buildRequest();
-                Response response = router.getResponse(request.getRoute());
-                if (request.getURL().equals("/file1")){
-                    response.setBody("file1 contents");
+
+
+                HashMap<String, String> map = request.getHeaders();
+                for (Map.Entry<String,String> entry : map.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
                 }
-                out.print(response.buildResponse());
-                System.out.println(response.buildResponse());
 
-
+                ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
+                Response response = responseBuilder.getResponse(request);
+                out.write(response.buildResponse());
+                out.flush();
                 out.close();
             }
         } catch (Exception e){
