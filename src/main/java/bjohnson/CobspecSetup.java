@@ -21,7 +21,13 @@ public class CobspecSetup {
         buildFileRoutes();
         buildTeaPotRoutes();
         buildParamEchoRoute();
+        buildpatchRoute();
         return router;
+    }
+
+    private void buildpatchRoute() {
+        router.addRoute("GET /patch-content.txt", new FileReadResponseBuilder(publicDir));
+        router.addRoute("PATCH /patch-content.txt", new TwoHundredOKResponseBuilder());
     }
 
     private void buildParamEchoRoute() {
