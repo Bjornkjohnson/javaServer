@@ -27,7 +27,7 @@ public class CobspecSetup {
 
     private void buildpatchRoute() {
         router.addRoute("GET /patch-content.txt", new FileReadResponseBuilder(publicDir));
-        router.addRoute("PATCH /patch-content.txt", new TwoHundredOKResponseBuilder());
+        router.addRoute("PATCH /patch-content.txt", new FileWriterResponseBuilder(publicDir));
     }
 
     private void buildParamEchoRoute() {

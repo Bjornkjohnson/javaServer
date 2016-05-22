@@ -35,13 +35,7 @@ public class Server {
                 out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in, new ParameterParser()).buildRequest();
-
-
-                HashMap<String, String> map = request.getHeaders();
-                for (Map.Entry<String,String> entry : map.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                }
-
+                System.out.println(request.getBody());
                 ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
                 Response response = responseBuilder.getResponse(request);
                 out.write(response.buildResponse());
