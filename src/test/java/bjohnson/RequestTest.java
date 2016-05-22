@@ -71,4 +71,14 @@ public class RequestTest {
         testRequest.addHeader("Content-Length", "5");
         assertEquals("5", testRequest.getHeaders().get("Content-Length"));
     }
+
+    @Test
+    public void testAddParams() throws Exception {
+        String params[] = new String[]{"Hi", "There"};
+        testRequest.addParams(params);
+        assertEquals(2, testRequest.getParams().length);
+        assertEquals("Hi", testRequest.getParams()[0]);
+        assertEquals("There", testRequest.getParams()[1]);
+
+    }
 }
