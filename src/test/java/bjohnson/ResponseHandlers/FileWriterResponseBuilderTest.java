@@ -13,7 +13,7 @@ public class FileWriterResponseBuilderTest {
     private Request request;
     private String filePath;
     private String url;
-    File file;
+    private File file;
 
 
     @Before
@@ -29,7 +29,7 @@ public class FileWriterResponseBuilderTest {
     }
 
     @Test
-    public void testSuccessfullWriteReturnTwoHundredOK()throws Exception{
+    public void testSuccessfulWriteReturnTwoHundredOK()throws Exception{
         request.setBody("Test Stuff");
         FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
         Response response = fileWriterResponseBuilder.getResponse(request);
@@ -50,6 +50,28 @@ public class FileWriterResponseBuilderTest {
         FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
         fileWriterResponseBuilder.getResponse(request);
         assertEquals("Test Stuff", checkFileContents());
+    }
+
+    @Test
+    public void testResponseHasTwoOhFourStatus() throws Exception {
+        request.setURL("/patch-content.txt");
+        request.setMethod("PATCH");
+        request.addHeader("If-Match", "dc50a0d27dda2eee9f65644cd7e4c9cf11de8bec");
+        request.setBody("default content");
+        FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
+        Response response = fileWriterResponseBuilder.getResponse(request);
+        assertEquals("204 No Content", response.getStatus());
+    }
+
+    @Test
+    public void testResponseHasFourHundredIfNotPatchable() throws Exception {
+        request.setURL("/patch-content.txt");
+        request.setMethod("PATCH");
+        request.addHeader("If-Match", "dc50a0d27dda2eee9f65644cd7e4c9cf11de8b");
+        request.setBody("default content");
+        FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
+        Response response = fileWriterResponseBuilder.getResponse(request);
+        assertEquals("400 Bad Request", response.getStatus());
     }
 
     private String checkFileContents() throws IOException{

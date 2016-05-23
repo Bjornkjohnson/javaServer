@@ -3,16 +3,19 @@ package bjohnson;
 import java.io.BufferedReader;
 import java.util.HashMap;
 
-public class RequestBuilder {
-    private BufferedReader in;
-    private Request request;
-    private HashMap<String, String> headers;
+class RequestBuilder {
+    private final BufferedReader in;
+    private final Request request;
+    private final HashMap<String, String> headers;
+    private final ParameterParser paramParser;
 
 
-    public RequestBuilder(BufferedReader in) throws Exception{
+    public RequestBuilder(BufferedReader in, ParameterParser paramParser) {
         this.in = in;
+        this.paramParser = paramParser;
         request = new Request();
         headers = new HashMap<>();
+
     }
 
     public Request buildRequest() throws Exception {
@@ -59,7 +62,15 @@ public class RequestBuilder {
     }
 
     private void extractURL(String rawRequest) {
-        request.setURL(rawRequest.split(" ")[1]);
+        String methodAndParams = rawRequest.split(" ")[1];
+        request.setURL(methodAndParams.split("\\?")[0]);
+        if (methodAndParams.contains("?")){
+            parseParams(methodAndParams);
+        }
+    }
+
+    private void parseParams(String rawParams) {
+        request.setParams(paramParser.parseParameters(rawParams));
     }
 
     private void extractProtocol(String rawRequest) {

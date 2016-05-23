@@ -2,10 +2,10 @@ package bjohnson;
 
 import bjohnson.ResponseHandlers.*;
 
-public class CobspecSetup {
+class CobspecSetup {
 
-    private Router router = new Router();
-    private String publicDir;
+    private final Router router = new Router();
+    private final String publicDir;
 
     public CobspecSetup(String publicDir){
         this.publicDir = publicDir;
@@ -19,17 +19,33 @@ public class CobspecSetup {
         buildImageRoutes();
         buildRedirectRoute();
         buildFileRoutes();
-        teaPotRoutes();
+        buildTeaPotRoutes();
+        buildParamEchoRoute();
+        buildPatchRoute();
+        buildLogsRoute();
         return router;
     }
 
+    private void buildLogsRoute() {
+        router.addRoute("GET /logs", new BasicAuthResponseHandler(publicDir));
+    }
+
+    private void buildPatchRoute() {
+        router.addRoute("GET /patch-content.txt", new FileReadResponseBuilder(publicDir));
+        router.addRoute("PATCH /patch-content.txt", new FileWriterResponseBuilder(publicDir));
+    }
+
+    private void buildParamEchoRoute() {
+        router.addRoute("GET /parameters", new EchoParamsResponseBuilder());
+    }
+
     private void buildRootRoute() {
-        router.addRoute("GET /", new TwoHundredOKResponseBuilder());
+        router.addRoute("GET /", new HTMLDirectoryResponseBuilder(publicDir));
         router.addRoute("HEAD /", new HeadResponseBuilder());
 
     }
 
-    private void teaPotRoutes() {
+    private void buildTeaPotRoutes() {
         router.addRoute("GET /coffee", new FourEighteenResponseBuilder());
         router.addRoute("GET /tea", new HeadResponseBuilder());
 

@@ -6,24 +6,24 @@ import bjohnson.ResponseHandlers.ResponseBuilderInterface;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 
-public class Server {
+class Server {
     private final Router router;
     private final String publicDir;
+    private RequestLogger logger;
     private ServerSocket listener;
     private Socket clientSocket;
     private OutputStream out;
-    BufferedReader in;
+    private BufferedReader in;
 
-    public Server(Router router, String publicDir){
+    public Server(Router router, String publicDir, RequestLogger logger){
         this.router = router;
         this.publicDir = publicDir;
+        this.logger = logger;
         System.out.println(this.publicDir);
     }
 
-    public boolean isRunning(){
+    private boolean isRunning(){
         return !listener.isClosed();
     }
 
@@ -34,14 +34,8 @@ public class Server {
                 clientSocket = listener.accept();
                 out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                Request request = new RequestBuilder(in).buildRequest();
-
-
-                HashMap<String, String> map = request.getHeaders();
-                for (Map.Entry<String,String> entry : map.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                }
-
+                Request request = new RequestBuilder(in, new ParameterParser()).buildRequest();
+                logger.logRequest(request.getStatusLine());
                 ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
                 Response response = responseBuilder.getResponse(request);
                 out.write(response.buildResponse());

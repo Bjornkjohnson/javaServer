@@ -5,7 +5,7 @@ import bjohnson.Request;
 import java.io.File;
 
 public class FileDeleteResponseBuilder implements ResponseBuilderInterface{
-    private String filePath;
+    private final String filePath;
     private Response response;
 
 

@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Vector;
 
 public class Router {
-    private HashMap<String, ResponseBuilderInterface> routesWithMethods = new HashMap<>();
-    private Vector<String> routes = new Vector<>();
+    private final HashMap<String, ResponseBuilderInterface> routesWithMethods = new HashMap<>();
+    private final Vector<String> routes = new Vector<>();
 
     public boolean routeExists(String route) {
         return routes.contains(route);

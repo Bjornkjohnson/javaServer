@@ -8,6 +8,7 @@ public class Request {
     private String protocol = "";
     private String body = "";
     private HashMap<String, String> headers = new HashMap<>();
+    private String[] params;
 
     public void setMethod(String method) {
         this.method = method;
@@ -61,5 +62,17 @@ public class Request {
 
     public void addHeader(String headerName, String headerContent) {
         headers.put(headerName, headerContent);
+    }
+
+    public void setParams(String[] params) {
+        this.params = params;
+    }
+
+    public String[] getParams() {
+        return params;
+    }
+
+    public String getStatusLine() {
+        return getRoute() + " " + getProtocol();
     }
 }

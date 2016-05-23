@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;
 
-public class ArgsParser {
+class ArgsParser {
     private static String[] rawArgs;
 
-    ArgsParser(String[] rawArgs) {
-        this.rawArgs = rawArgs.clone();
+    public ArgsParser(String[] rawArgs) {
+        ArgsParser.rawArgs = rawArgs;
     }
 
     private boolean containsFlag(String flag){

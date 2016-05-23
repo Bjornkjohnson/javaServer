@@ -1,7 +1,5 @@
 package bjohnson;
 
-import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,20 +8,13 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 public class RequestTest {
-    private String rawRequest;
     private Request testRequest;
 
     @Before
     public void setUp() throws Exception {
         testRequest = new Request();
 
-        rawRequest = "GET / HTTP/1.1";
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-
+        String rawRequest = "GET / HTTP/1.1";
     }
 
     @Test
@@ -70,5 +61,23 @@ public class RequestTest {
     public void testAddHeader() throws Exception {
         testRequest.addHeader("Content-Length", "5");
         assertEquals("5", testRequest.getHeaders().get("Content-Length"));
+    }
+
+    @Test
+    public void testGetStatusLine() throws Exception {
+        testRequest.setMethod("GET");
+        testRequest.setURL("/");
+        testRequest.setProtocol("HTTP/1.1");
+        assertEquals("GET / HTTP/1.1", testRequest.getStatusLine());
+    }
+
+    @Test
+    public void testAddParams() throws Exception {
+        String params[] = new String[]{"Hi", "There"};
+        testRequest.setParams(params);
+        assertEquals(2, testRequest.getParams().length);
+        assertEquals("Hi", testRequest.getParams()[0]);
+        assertEquals("There", testRequest.getParams()[1]);
+
     }
 }
