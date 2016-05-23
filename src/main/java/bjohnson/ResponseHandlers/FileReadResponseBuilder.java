@@ -1,5 +1,6 @@
 package bjohnson.ResponseHandlers;
 
+import bjohnson.FileIO;
 import bjohnson.Request;
 
 import java.io.File;
@@ -20,9 +21,8 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
 
     private void readFromFile() {
         String fullPath = directoryPath + request.getURL();
-        File image = new File(fullPath);
         try {
-            byte[] fileContent = Files.readAllBytes(image.toPath());
+            byte[] fileContent = FileIO.readFromFile(fullPath);
             if (isPartialFileRequest()){
                 buildPartialResponse(fileContent);
             } else {
