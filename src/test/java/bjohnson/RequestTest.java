@@ -72,6 +72,14 @@ public class RequestTest {
     }
 
     @Test
+    public void testGetStatusLine() throws Exception {
+        testRequest.setMethod("GET");
+        testRequest.setURL("/");
+        testRequest.setProtocol("HTTP/1.1");
+        assertEquals("GET / HTTP/1.1", testRequest.getStatusLine());
+    }
+
+    @Test
     public void testAddParams() throws Exception {
         String params[] = new String[]{"Hi", "There"};
         testRequest.setParams(params);

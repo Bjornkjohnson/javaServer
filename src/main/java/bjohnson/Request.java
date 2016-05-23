@@ -71,4 +71,8 @@ public class Request {
     public String[] getParams() {
         return params;
     }
+
+    public String getStatusLine() {
+        return getRoute() + " " + getProtocol();
+    }
 }
