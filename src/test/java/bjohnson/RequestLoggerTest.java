@@ -18,15 +18,15 @@ public class RequestLoggerTest {
     }
     @Test
     public void testLogsRequestToFile() throws Exception {
-        RequestLogger logger = new RequestLogger(filePath + "/Log");
+        RequestLogger logger = new RequestLogger(filePath);
         logger.logRequest("hi");
         logger.logRequest("there");
         logger.logRequest("guy");
-        String contents = new String(FileIO.readFromFile(filePath + "/Log"));
+        String contents = new String(FileIO.readFromFile(filePath + "/logs"));
         assertThat(contents, containsString("hi"));
         assertThat(contents, containsString("there"));
         assertThat(contents, containsString("guy"));
-        File log = new File(filePath + "/Log");
+        File log = new File(filePath + "/logs");
         log.delete();
     }
 

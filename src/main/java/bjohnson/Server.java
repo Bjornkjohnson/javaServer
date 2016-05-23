@@ -10,14 +10,16 @@ import java.net.Socket;
 class Server {
     private final Router router;
     private final String publicDir;
+    private RequestLogger logger;
     private ServerSocket listener;
     private Socket clientSocket;
     private OutputStream out;
     private BufferedReader in;
 
-    public Server(Router router, String publicDir){
+    public Server(Router router, String publicDir, RequestLogger logger){
         this.router = router;
         this.publicDir = publicDir;
+        this.logger = logger;
         System.out.println(this.publicDir);
     }
 
@@ -33,6 +35,7 @@ class Server {
                 out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in, new ParameterParser()).buildRequest();
+                logger.logRequest(request.getStatusLine());
                 ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
                 Response response = responseBuilder.getResponse(request);
                 out.write(response.buildResponse());

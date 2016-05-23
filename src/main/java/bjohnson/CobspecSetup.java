@@ -22,7 +22,12 @@ class CobspecSetup {
         buildTeaPotRoutes();
         buildParamEchoRoute();
         buildPatchRoute();
+        buildLogsRoute();
         return router;
+    }
+
+    private void buildLogsRoute() {
+        router.addRoute("GET /logs", new FileReadResponseBuilder(publicDir));
     }
 
     private void buildPatchRoute() {
