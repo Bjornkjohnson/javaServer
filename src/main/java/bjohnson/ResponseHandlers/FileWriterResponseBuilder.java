@@ -1,68 +1,57 @@
 package bjohnson.ResponseHandlers;
 
+import bjohnson.FileIO;
 import bjohnson.Request;
 
 import javax.xml.bind.DatatypeConverter;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
 public class FileWriterResponseBuilder implements ResponseBuilderInterface {
     private Response response;
     private final String filePath;
+    private String fullPath;
+    private Request request;
 
     public FileWriterResponseBuilder(String filePath) {
         this.filePath = filePath;
     }
 
-    private void writeToFile(Request request) {
-        String fullPath = filePath + request.getURL();
-        File outFile = new File(fullPath);
-
-
-        try {
-            if (!outFile.exists()) {
-                outFile.createNewFile();
-            }
-
-            FileWriter fw = new FileWriter(outFile.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(request.getBody());
-            bw.close();
-
-        } catch (IOException e) {
-
-            response = new FourOhFourResponseBuilder().getResponse(request);
-        }
-    }
-
     @Override
     public Response getResponse(Request request) {
         this.response = new Response();
+        fullPath = filePath + request.getURL();
+        this.request = request;
+        
         if (isPatch(request.getMethod())){
-            getPatchResponse(request);
+            getPatchResponse();
         } else {
-            writeToFile(request);
+            writeToFile();
         }
         return response;
     }
 
-    private void getPatchResponse(Request request) {
-        if (isPatchable(request)){
-            response.setStatus("204 No Content");
-            writeToFile(request);
+    private void writeToFile() {
+        try {
+            FileIO.writeToFile(fullPath, request.getBody());
+        } catch (IOException e) {
+            response = new FourOhFourResponseBuilder().getResponse(request);
         }
     }
 
-    private boolean isPatchable(Request request) {
+    private void getPatchResponse() {
+        if (RequestIsPatchable()){
+            response.setStatus("204 No Content");
+            writeToFile();
+        }
+    }
+
+    private boolean RequestIsPatchable() {
 
         try {
             MessageDigest mDigest = MessageDigest.getInstance("SHA1");
-            byte[] fileContentsHash = mDigest.digest(getFileContents(request));
+            byte[] fileContentsHash = mDigest.digest(getFileContents());
             byte[] requestHash = DatatypeConverter.parseHexBinary(request.getHeaders().get("If-Match"));
             if (Arrays.equals(requestHash, fileContentsHash)){
                 return true;
@@ -74,9 +63,8 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
         return false;
     }
 
-    private byte[] getFileContents(Request request) throws IOException {
-        File patchFile = new File(filePath + request.getURL());
-        return Files.readAllBytes(patchFile.toPath());
+    private byte[] getFileContents() throws IOException {
+        return FileIO.readFromFile(filePath + request.getURL());
     }
 
     private boolean isPatch(String method) {
