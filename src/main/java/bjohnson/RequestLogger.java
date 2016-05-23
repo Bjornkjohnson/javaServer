@@ -10,7 +10,6 @@ public class RequestLogger {
     }
 
     public void logRequest(String request) throws IOException{
-        System.out.println(filePath);
         FileIO.appendToFile(filePath, request);
     }
 }

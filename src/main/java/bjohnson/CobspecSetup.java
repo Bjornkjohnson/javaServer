@@ -27,7 +27,7 @@ class CobspecSetup {
     }
 
     private void buildLogsRoute() {
-        router.addRoute("GET /logs", new FileReadResponseBuilder(publicDir));
+        router.addRoute("GET /logs", new BasicAuthResponseHandler(publicDir));
     }
 
     private void buildPatchRoute() {
