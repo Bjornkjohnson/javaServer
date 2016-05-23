@@ -45,4 +45,15 @@ public class FileIOTest {
         assertArrayEquals("Text!".getBytes(), FileIO.readPartialContents(filePath + file, "bytes=5-10"));
     }
 
+    @Test
+    public void TestAppendToFile() throws Exception {
+        String file = "/appendFile.txt";
+        FileIO.appendToFile(filePath + file, "I wrote This");
+        FileIO.appendToFile(filePath + file, "and this");
+        FileIO.appendToFile(filePath + file, "this too");
+        assertArrayEquals("I wrote This\nand this\nthis too\n".getBytes(), FileIO.readFromFile(filePath + file));
+        File appendFile = new File(filePath + file);
+        appendFile.delete();
+    }
+
 }

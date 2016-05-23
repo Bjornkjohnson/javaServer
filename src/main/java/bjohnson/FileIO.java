@@ -30,4 +30,13 @@ public class FileIO {
         PartialContentRangeParser parser = new PartialContentRangeParser(range, allBytes.length);
         return Arrays.copyOfRange(allBytes,parser.getStart(), parser.getEnd());
     }
+
+    public static void appendToFile(String filePath, String data) throws IOException{
+        File outFile = new File(filePath);
+        FileWriter fw = new FileWriter(outFile.getAbsoluteFile(), true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(data + "\n");
+        bw.close();
+        fw.close();
+    }
 }
