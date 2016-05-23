@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 public class FileIO {
     public static byte[] readFromFile(String filePath) throws IOException {
@@ -20,5 +21,10 @@ public class FileIO {
         bw.write(data);
         bw.close();
         fw.close();
+    }
+
+    public static byte[] readPartialContents(String filePath, int start, int end) throws Exception {
+        byte[] allBytes = readFromFile(filePath);
+        return Arrays.copyOfRange(allBytes,start, end);
     }
 }

@@ -39,4 +39,10 @@ public class FileIOTest {
         writeFile.delete();
     }
 
+    @Test
+    public void TestReadPartialContent() throws Exception {
+        String file = "/readerFile.txt";
+        assertArrayEquals("Text!".getBytes(), FileIO.readPartialContents(filePath + file, 5, 10));
+    }
+
 }
