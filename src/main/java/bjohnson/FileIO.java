@@ -1,5 +1,7 @@
 package bjohnson;
 
+import bjohnson.ResponseHandlers.PartialContentRangeParser;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,8 +25,9 @@ public class FileIO {
         fw.close();
     }
 
-    public static byte[] readPartialContents(String filePath, int start, int end) throws Exception {
+    public static byte[] readPartialContents(String filePath, String range) throws Exception {
         byte[] allBytes = readFromFile(filePath);
-        return Arrays.copyOfRange(allBytes,start, end);
+        PartialContentRangeParser parser = new PartialContentRangeParser(range, allBytes.length);
+        return Arrays.copyOfRange(allBytes,parser.getStart(), parser.getEnd());
     }
 }

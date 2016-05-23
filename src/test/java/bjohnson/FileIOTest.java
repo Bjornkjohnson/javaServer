@@ -42,7 +42,7 @@ public class FileIOTest {
     @Test
     public void TestReadPartialContent() throws Exception {
         String file = "/readerFile.txt";
-        assertArrayEquals("Text!".getBytes(), FileIO.readPartialContents(filePath + file, 5, 10));
+        assertArrayEquals("Text!".getBytes(), FileIO.readPartialContents(filePath + file, "bytes=5-10"));
     }
 
 }

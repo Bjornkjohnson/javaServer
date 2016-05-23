@@ -3,58 +3,34 @@ package bjohnson.ResponseHandlers;
 import bjohnson.FileIO;
 import bjohnson.Request;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Arrays;
 
 public class FileReadResponseBuilder implements ResponseBuilderInterface {
     private final String directoryPath;
     private Response response;
     private Request request;
-    private int startRange = 0;
-    private int endRange = 0;
 
     public FileReadResponseBuilder(String directoryPath) {
         this.directoryPath = directoryPath;
     }
 
-    private void readFromFile() {
+    private void buildFullResponse() {
         String fullPath = directoryPath + request.getURL();
         try {
             byte[] fileContent = FileIO.readFromFile(fullPath);
-            if (isPartialFileRequest()){
-                buildPartialResponse(fileContent);
-            } else {
-                response.setBody(fileContent);
-            }
+            response.setBody(fileContent);
         } catch (IOException e) {
             response = new FourOhFourResponseBuilder().getResponse(request);
         }
     }
 
-    private void buildPartialResponse(byte[] fileContent) {
-        endRange = fileContent.length;
-        setContentRange();
-        response.setStatus("206 PARTIAL CONTENT");
-        response.setBody(Arrays.copyOfRange(fileContent, startRange, endRange));
-    }
-
-    private String[] parseContentRangeHeader() {
-        String rangeString = request.getHeaders().get("Range");
-        return rangeString.split("=")[1].split("");
-    }
-
-    private void setContentRange() {
-        String range[] = parseContentRangeHeader();
-        if (range.length == 3) {
-            startRange = Integer.parseInt(range[0]);
-            endRange = Integer.parseInt(range[2]) + 1;
-        } else if (range[0].equals("-")) {
-            startRange = endRange - Integer.parseInt(range[1]);
-        } else if (range[1].equals("-")) {
-            startRange = Integer.parseInt(range[0]);
-
+    private void buildPartialResponse() {
+        String fullPath = directoryPath + request.getURL();
+        try {
+            response.setStatus("206 PARTIAL CONTENT");
+            response.setBody(FileIO.readPartialContents(fullPath, request.getHeaders().get("Range")));
+        } catch (Exception e){
+            response = new FourOhFourResponseBuilder().getResponse(request);
         }
     }
 
@@ -65,7 +41,11 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
     public Response getResponse(Request request) {
         response = new Response();
         this.request = request;
-        readFromFile();
+        if (isPartialFileRequest()){
+            buildPartialResponse();
+        } else {
+            buildFullResponse();
+        }
         return response;
     }
 }
