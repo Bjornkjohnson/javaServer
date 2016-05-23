@@ -6,7 +6,7 @@ public class runner {
             ArgsParser parser = new ArgsParser(args);
             Router router = new CobspecSetup(parser.getDirectory()).buildRoutes();
             Server server = new Server(router, parser.getDirectory());
-            System.out.println("Starting bjohnson.Server on port " + parser.getPort() );
+            System.out.println("Starting Server on port " + parser.getPort() );
             server.start(parser.getPort());
         } catch (Exception e) {
             System.out.println(e);

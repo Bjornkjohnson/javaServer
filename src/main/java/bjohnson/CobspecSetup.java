@@ -35,7 +35,7 @@ public class CobspecSetup {
     }
 
     private void buildRootRoute() {
-        router.addRoute("GET /", new TwoHundredOKResponseBuilder());
+        router.addRoute("GET /", new HTMLDirectoryResponseBuilder(publicDir));
         router.addRoute("HEAD /", new HeadResponseBuilder());
 
     }
