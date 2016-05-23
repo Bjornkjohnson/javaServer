@@ -25,7 +25,6 @@ public class BasicAuthResponseHandler implements ResponseBuilderInterface {
         String credentials = "YWRtaW46aHVudGVyMg==";
         String rawRequestCredentials = request.getHeaders().getOrDefault("Authorization","None None");
         String parsedRequestCredentials = rawRequestCredentials.split(" ")[1];
-        System.out.println(rawRequestCredentials);
         return credentials.equals(parsedRequestCredentials);
     }
 }

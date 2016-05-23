@@ -6,15 +6,14 @@ import bjohnson.ResponseHandlers.ResponseBuilderInterface;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 class Server {
     private final Router router;
     private final String publicDir;
     private RequestLogger logger;
     private ServerSocket listener;
-    private Socket clientSocket;
-    private OutputStream out;
-    private BufferedReader in;
 
     public Server(Router router, String publicDir, RequestLogger logger){
         this.router = router;
@@ -30,31 +29,15 @@ class Server {
     public void start(int port) {
         try {
             listener = new ServerSocket(port);
+            Executor threadPool = Executors.newFixedThreadPool(50);
             while (isRunning()) {
-                clientSocket = listener.accept();
-                out = clientSocket.getOutputStream();
-                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                Request request = new RequestBuilder(in, new ParameterParser()).buildRequest();
-                logger.logRequest(request.getStatusLine());
-                ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
-                Response response = responseBuilder.getResponse(request);
-                out.write(response.buildResponse());
-                out.flush();
-                out.close();
+                Socket clientSocket = listener.accept();
+                threadPool.execute(new ServerThread(clientSocket, router, logger));
             }
         } catch (Exception e){
             throw new RuntimeException(e);
         }
 
-    }
-
-    public void stop() {
-        try {
-            in.close();
-            out.close();
-            listener.close();
-        }
-        catch (IOException e) { throw new RuntimeException(e);}
     }
 
 }
