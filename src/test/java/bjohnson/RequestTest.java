@@ -8,14 +8,13 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 public class RequestTest {
-    private String rawRequest;
     private Request testRequest;
 
     @Before
     public void setUp() throws Exception {
         testRequest = new Request();
 
-        rawRequest = "GET / HTTP/1.1";
+        String rawRequest = "GET / HTTP/1.1";
     }
 
     @Test

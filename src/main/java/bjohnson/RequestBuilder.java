@@ -10,7 +10,7 @@ class RequestBuilder {
     private final ParameterParser paramParser;
 
 
-    public RequestBuilder(BufferedReader in, ParameterParser paramParser) throws Exception{
+    public RequestBuilder(BufferedReader in, ParameterParser paramParser) {
         this.in = in;
         this.paramParser = paramParser;
         request = new Request();

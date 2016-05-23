@@ -27,7 +27,7 @@ public class HTMLDirectoryResponseBuilder implements ResponseBuilderInterface {
         String[] files = directory.list();
         body.append("<Body>\n<ol>\n");
         for (String file : files){
-            body.append("<li><a href=\"/"+ file + "\">" + file + "</a></li>\n");
+            body.append("<li><a href=\"/").append(file).append("\">").append(file).append("</a></li>\n");
         }
         body.append("</ol>\n</Body>\n");
         response.setBody(body.toString().getBytes());
