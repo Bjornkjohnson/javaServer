@@ -7,13 +7,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class HTMLDirectoryResponseBuilderTest {
-    private final String testHtml =
-            "<Body>\n<ol>\n" +
-            "<li><a href=\"/image.png\">image.png</a></li>\n" +
-            "<li><a href=\"/partial_content.txt\">partial_content.txt</a></li>\n" +
-            "<li><a href=\"/patch-content.txt\">patch-content.txt</a></li>\n" +
-            "<li><a href=\"/readerFile.txt\">readerFile.txt</a></li>\n" +
-                    "</ol>\n</Body>\n";
     private String filePath;
     private Request request;
 
@@ -34,6 +27,12 @@ public class HTMLDirectoryResponseBuilderTest {
     public void testBodyContainsTestHtml() throws Exception {
         HTMLDirectoryResponseBuilder htmlDirectoryResponseBuilder = new HTMLDirectoryResponseBuilder(filePath);
         Response response = htmlDirectoryResponseBuilder.getResponse(request);
+        String testHtml = "<Body>\n<ol>\n" +
+                "<li><a href=\"/image.png\">image.png</a></li>\n" +
+                "<li><a href=\"/partial_content.txt\">partial_content.txt</a></li>\n" +
+                "<li><a href=\"/patch-content.txt\">patch-content.txt</a></li>\n" +
+                "<li><a href=\"/readerFile.txt\">readerFile.txt</a></li>\n" +
+                "</ol>\n</Body>\n";
         assertArrayEquals(testHtml.getBytes(), response.getBody());
     }
 }

@@ -3,8 +3,8 @@ package bjohnson;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParameterParser {
-    private HashMap<String, String> decoder;
+class ParameterParser {
+    private final HashMap<String, String> decoder;
 
     ParameterParser() {
         decoder = new HashMap<>();

@@ -1,6 +1,6 @@
 package bjohnson;
 
-public class runner {
+class runner {
     public static void main(String [] args) {
         try {
             ArgsParser parser = new ArgsParser(args);

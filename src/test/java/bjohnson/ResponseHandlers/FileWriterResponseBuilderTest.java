@@ -13,7 +13,7 @@ public class FileWriterResponseBuilderTest {
     private Request request;
     private String filePath;
     private String url;
-    File file;
+    private File file;
 
 
     @Before
@@ -29,7 +29,7 @@ public class FileWriterResponseBuilderTest {
     }
 
     @Test
-    public void testSuccessfullWriteReturnTwoHundredOK()throws Exception{
+    public void testSuccessfulWriteReturnTwoHundredOK()throws Exception{
         request.setBody("Test Stuff");
         FileWriterResponseBuilder fileWriterResponseBuilder = new FileWriterResponseBuilder(filePath);
         Response response = fileWriterResponseBuilder.getResponse(request);

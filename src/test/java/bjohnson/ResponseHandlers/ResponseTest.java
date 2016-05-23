@@ -1,6 +1,5 @@
 package bjohnson.ResponseHandlers;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,11 +13,6 @@ public class ResponseTest {
     @Before
     public void setUp() throws Exception {
         testResponse = new Response();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
     }
 
     @Test
@@ -57,7 +51,7 @@ public class ResponseTest {
     }
 
     @Test
-    public void testGetHeaderReturnsHeaderAttribure() throws Exception {
+    public void testGetHeaderReturnsHeaderAttribute() throws Exception {
         testResponse.addHeader("Allow", "HEAD, POST, GET, OPTIONS, PUT");
         assertEquals("HEAD, POST, GET, OPTIONS, PUT", testResponse.getHeader("Allow"));
     }

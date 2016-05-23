@@ -9,17 +9,15 @@ import java.io.File;
 import static org.junit.Assert.*;
 
 public class FileDeleteResponseBuilderTest {
-    private String filePath;
-    String fileName;
-    File file;
-    Request request;
-    FileDeleteResponseBuilder deleteResponseBuilder;
+    private File file;
+    private Request request;
+    private FileDeleteResponseBuilder deleteResponseBuilder;
 
 
     @Before
     public void setUp() throws Exception{
-        filePath = System.getProperty("user.dir") + "/src/test/java/bjohnson/testResource";
-        fileName = "/testFile";
+        String filePath = System.getProperty("user.dir") + "/src/test/java/bjohnson/testResource";
+        String fileName = "/testFile";
         file = new File(filePath + fileName);
         request = new Request();
         request.setURL(fileName);

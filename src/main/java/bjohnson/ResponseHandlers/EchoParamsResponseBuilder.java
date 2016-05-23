@@ -3,7 +3,7 @@ package bjohnson.ResponseHandlers;
 import bjohnson.Request;
 
 public class EchoParamsResponseBuilder implements ResponseBuilderInterface {
-    Response response;
+    private Response response;
     @Override
     public Response getResponse(Request request) {
         response = new Response();

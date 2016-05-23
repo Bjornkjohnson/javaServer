@@ -4,8 +4,6 @@ import bjohnson.Request;
 
 import java.io.File;
 
-import org.apache.commons.io.filefilter.HiddenFileFilter;
-
 
 public class HTMLDirectoryResponseBuilder implements ResponseBuilderInterface {
     private final String filePath;
@@ -26,7 +24,7 @@ public class HTMLDirectoryResponseBuilder implements ResponseBuilderInterface {
     private void buildDirectoryHtml(Request request) {
         StringBuilder body = new StringBuilder();
         File directory = new File(filePath + request.getURL());
-        String[] files = directory.list(HiddenFileFilter.VISIBLE);
+        String[] files = directory.list();
         body.append("<Body>\n<ol>\n");
         for (String file : files){
             body.append("<li><a href=\"/"+ file + "\">" + file + "</a></li>\n");

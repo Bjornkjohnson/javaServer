@@ -4,7 +4,7 @@ import bjohnson.Request;
 
 public class OptionsResponseBuilder implements ResponseBuilderInterface {
 
-    private Response response;
+    private final Response response;
 
     public OptionsResponseBuilder() {
         response = new Response();

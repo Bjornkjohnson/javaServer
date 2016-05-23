@@ -6,16 +6,14 @@ import bjohnson.ResponseHandlers.ResponseBuilderInterface;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 
-public class Server {
+class Server {
     private final Router router;
     private final String publicDir;
     private ServerSocket listener;
     private Socket clientSocket;
     private OutputStream out;
-    BufferedReader in;
+    private BufferedReader in;
 
     public Server(Router router, String publicDir){
         this.router = router;
@@ -23,7 +21,7 @@ public class Server {
         System.out.println(this.publicDir);
     }
 
-    public boolean isRunning(){
+    private boolean isRunning(){
         return !listener.isClosed();
     }
 
@@ -35,7 +33,6 @@ public class Server {
                 out = clientSocket.getOutputStream();
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 Request request = new RequestBuilder(in, new ParameterParser()).buildRequest();
-                System.out.println(request.getBody());
                 ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
                 Response response = responseBuilder.getResponse(request);
                 out.write(response.buildResponse());

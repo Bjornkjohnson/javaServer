@@ -13,15 +13,14 @@ import java.util.Arrays;
 
 public class FileWriterResponseBuilder implements ResponseBuilderInterface {
     private Response response;
-    private String filePath;
-    private String fullPath;
+    private final String filePath;
 
     public FileWriterResponseBuilder(String filePath) {
         this.filePath = filePath;
     }
 
-    public void writeToFile(Request request) {
-        fullPath = filePath + request.getURL();
+    private void writeToFile(Request request) {
+        String fullPath = filePath + request.getURL();
         File outFile = new File(fullPath);
 
 

@@ -4,7 +4,7 @@ import bjohnson.Request;
 
 public class RedirectResponseBuilder implements ResponseBuilderInterface{
     private Response response;
-    private String redirectAddress;
+    private final String redirectAddress;
 
     public RedirectResponseBuilder(String redirectAddress) {
         this.redirectAddress = redirectAddress;

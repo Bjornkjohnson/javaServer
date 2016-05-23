@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 
 public class FileReadResponseBuilder implements ResponseBuilderInterface {
-    private String directoryPath;
+    private final String directoryPath;
     private Response response;
     private Request request;
     private int startRange = 0;
@@ -18,7 +18,7 @@ public class FileReadResponseBuilder implements ResponseBuilderInterface {
         this.directoryPath = directoryPath;
     }
 
-    public void readFromFile() {
+    private void readFromFile() {
         String fullPath = directoryPath + request.getURL();
         File image = new File(fullPath);
         try {

@@ -7,14 +7,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class ImageResponseBuilder implements ResponseBuilderInterface {
-    private String directoryPath;
+    private final String directoryPath;
     private Response response;
 
     public ImageResponseBuilder(String directoryPath) {
         this.directoryPath = directoryPath;
     }
 
-    public void readFromFile(Request request) {
+    private void readFromFile(Request request) {
         String fullPath = directoryPath + request.getURL();
         File image = new File(fullPath);
         try {

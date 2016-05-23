@@ -1,6 +1,5 @@
 package bjohnson;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,12 +16,6 @@ public class RequestTest {
         testRequest = new Request();
 
         rawRequest = "GET / HTTP/1.1";
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-
     }
 
     @Test

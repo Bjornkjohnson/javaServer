@@ -7,7 +7,7 @@ public class Response {
     private final String PROTOCOL = "HTTP/1.1 ";
     private String status = "200 OK";
     private byte[] body;
-    private HashMap<String, String> headers = new HashMap<>();
+    private final HashMap<String, String> headers = new HashMap<>();
 
     public byte[] buildResponse() {
         String statusAndHeaders = PROTOCOL + status + CRLF +

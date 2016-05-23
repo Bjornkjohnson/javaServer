@@ -3,11 +3,11 @@ package bjohnson;
 import java.io.BufferedReader;
 import java.util.HashMap;
 
-public class RequestBuilder {
-    private BufferedReader in;
-    private Request request;
-    private HashMap<String, String> headers;
-    private ParameterParser paramParser;
+class RequestBuilder {
+    private final BufferedReader in;
+    private final Request request;
+    private final HashMap<String, String> headers;
+    private final ParameterParser paramParser;
 
 
     public RequestBuilder(BufferedReader in, ParameterParser paramParser) throws Exception{

@@ -2,10 +2,10 @@ package bjohnson;
 
 import bjohnson.ResponseHandlers.*;
 
-public class CobspecSetup {
+class CobspecSetup {
 
-    private Router router = new Router();
-    private String publicDir;
+    private final Router router = new Router();
+    private final String publicDir;
 
     public CobspecSetup(String publicDir){
         this.publicDir = publicDir;
@@ -21,11 +21,11 @@ public class CobspecSetup {
         buildFileRoutes();
         buildTeaPotRoutes();
         buildParamEchoRoute();
-        buildpatchRoute();
+        buildPatchRoute();
         return router;
     }
 
-    private void buildpatchRoute() {
+    private void buildPatchRoute() {
         router.addRoute("GET /patch-content.txt", new FileReadResponseBuilder(publicDir));
         router.addRoute("PATCH /patch-content.txt", new FileWriterResponseBuilder(publicDir));
     }

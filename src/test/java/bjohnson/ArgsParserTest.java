@@ -1,25 +1,11 @@
 package bjohnson;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-
 public class ArgsParserTest {
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
 
     @Test
     public void testPortExtractionWhenPortFirst() throws Exception {
@@ -45,7 +31,7 @@ public class ArgsParserTest {
     }
 
     @Test(expected=NumberFormatException.class)
-    public void testPortFlagFollowedByNonNumberThrowsExpception() throws Exception {
+    public void testPortFlagFollowedByNonNumberThrowsException() throws Exception {
         String[] rawArgs = {"-p" , "-d", "MY_DIR"};
         ArgsParser testParser = new ArgsParser(rawArgs);
         testParser.getPort();
