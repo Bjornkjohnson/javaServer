@@ -1,5 +1,6 @@
 package bjohnson.ResponseHandlers;
 
+import bjohnson.FileIO;
 import bjohnson.Request;
 
 import java.io.File;
@@ -23,8 +24,7 @@ public class HTMLDirectoryResponseBuilder implements ResponseBuilderInterface {
 
     private void buildDirectoryHtml(Request request) {
         StringBuilder body = new StringBuilder();
-        File directory = new File(filePath + request.getURL());
-        String[] files = directory.list();
+        String[] files = FileIO.getDirectoryContents(filePath);
         body.append("<Body>\n<ol>\n");
         for (String file : files){
             body.append("<li><a href=\"/").append(file).append("\">").append(file).append("</a></li>\n");

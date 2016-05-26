@@ -29,7 +29,7 @@ class Server {
     public void start(int port) {
         try {
             listener = new ServerSocket(port);
-            Executor threadPool = Executors.newFixedThreadPool(50);
+            Executor threadPool = Executors.newFixedThreadPool(5);
             while (isRunning()) {
                 Socket clientSocket = listener.accept();
                 threadPool.execute(new ServerThread(clientSocket, router, logger));
