@@ -1,9 +1,8 @@
 package bjohnson;
 
-import bjohnson.ResponseHandlers.Response;
-import bjohnson.ResponseHandlers.ResponseBuilderInterface;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executor;
@@ -22,7 +21,7 @@ class Server {
         System.out.println(this.publicDir);
     }
 
-    private boolean isRunning(){
+    public boolean isRunning(){
         return !listener.isClosed();
     }
 
@@ -32,10 +31,12 @@ class Server {
             Executor threadPool = Executors.newFixedThreadPool(5);
             while (isRunning()) {
                 Socket clientSocket = listener.accept();
-                threadPool.execute(new ServerThread(clientSocket, router, logger));
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                OutputStream out = clientSocket.getOutputStream();
+                threadPool.execute(new ServerThread(in, out, router, logger));
             }
         } catch (Exception e){
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }

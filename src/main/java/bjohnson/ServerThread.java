@@ -4,35 +4,37 @@ import bjohnson.ResponseHandlers.Response;
 import bjohnson.ResponseHandlers.ResponseBuilderInterface;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.Socket;
 
 public class ServerThread implements Runnable {
-    private Socket clientSocket;
+    private BufferedReader in;
     private Router router;
     private RequestLogger logger;
+    private OutputStream out;
 
-    public ServerThread(Socket clientSocket, Router router ,RequestLogger logger) {
-        this.clientSocket = clientSocket;
+    public ServerThread(BufferedReader in, OutputStream out , Router router ,RequestLogger logger) {
+        this.in = in;
+        this.out = out;
         this.router = router;
         this.logger = logger;
+    }
+
+    private void writeToStream(Response response) throws Exception {
+        out.write(response.buildResponse());
+        out.flush();
+        out.close();
     }
 
     @Override
     public void run()  {
         try {
-            OutputStream out = clientSocket.getOutputStream();
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             Request request = new RequestBuilder(in, new ParameterParser()).buildRequest();
             logger.logRequest(request.getStatusLine());
             ResponseBuilderInterface responseBuilder = router.getResponse(request.getRoute());
-            Response response = responseBuilder.getResponse(request);
-            out.write(response.buildResponse());
-            out.flush();
-            out.close();
+            writeToStream(responseBuilder.getResponse(request));
+
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
 
     }

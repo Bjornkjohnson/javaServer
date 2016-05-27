@@ -57,7 +57,7 @@ public class FileWriterResponseBuilder implements ResponseBuilderInterface {
                 return true;
             }
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         response.setStatus("400 Bad Request");
         return false;

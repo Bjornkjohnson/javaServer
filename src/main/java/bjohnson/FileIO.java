@@ -12,8 +12,7 @@ import java.util.Arrays;
 public class FileIO {
     public synchronized static byte[] readFromFile(String filePath) throws IOException {
         File file = new File(filePath);
-        byte[] fileContent = Files.readAllBytes(file.toPath());
-        return fileContent;
+        return Files.readAllBytes(file.toPath());
     }
 
     public synchronized static void writeToFile(String filePath, String data) throws IOException {

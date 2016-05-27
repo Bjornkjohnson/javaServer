@@ -3,8 +3,6 @@ package bjohnson.ResponseHandlers;
 import bjohnson.FileIO;
 import bjohnson.Request;
 
-import java.io.File;
-
 
 public class HTMLDirectoryResponseBuilder implements ResponseBuilderInterface {
     private final String filePath;
