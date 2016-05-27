@@ -46,6 +46,12 @@ public class FileIOTest {
     }
 
     @Test
+    public void TestDirectoryRead() throws Exception {
+        String[] files = {"image.png", "partial_content.txt", "patch-content.txt", "readerFile.txt"};
+        assertArrayEquals(files, FileIO.getDirectoryContents(filePath));
+    }
+
+    @Test
     public void TestAppendToFile() throws Exception {
         String file = "/appendFile.txt";
         FileIO.appendToFile(filePath + file, "I wrote This");
